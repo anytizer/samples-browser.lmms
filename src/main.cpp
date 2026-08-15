@@ -802,8 +802,8 @@ void processGUI(QTableWidget& table, QString samplesPath, int maxSamples)
     // -----------------------------------------------------
 
     double longestDuration = 0.0;
-    for (const WavInfo &wav : wavList) {
-
+    for (const WavInfo &wav : wavList)
+    {
         longestDuration = qMax(longestDuration, wav.durationSeconds);
     }
 
@@ -831,17 +831,23 @@ void processGUI(QTableWidget& table, QString samplesPath, int maxSamples)
             QTableWidgetItem *item = table.item(row, 0);
             if (!item) return;
             
-            QSoundEffect *m_sound = new QSoundEffect;
             QString wavfile = QDir::cleanPath(QString("%1/%2").arg(samplesPath).arg(item->text()));
-            m_sound->setSource(QUrl::fromLocalFile(wavfile));
-            m_sound->setVolume(1.0f);
-            m_sound->setLoopCount(1); // QSoundEffect::Infinite
-            m_sound->play();
+            QFile wf(wavfile);
+            if(wf.exists())
+            {
+                /**
+                 * Safe even when file missing!
+                 */
+                QSoundEffect *m_sound = new QSoundEffect;
+                m_sound->setSource(QUrl::fromLocalFile(wavfile));
+                m_sound->setVolume(1.0f);
+                m_sound->setLoopCount(1); // QSoundEffect::Infinite
+                m_sound->play();
+            }
 
             // @todo On double click, send sample path to LMMS
-        });
-
-    //return &table;
+        }
+    );
 }
 
 
