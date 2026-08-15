@@ -1,7 +1,14 @@
 Work in progress!!
 
-Visual presentation of the wav graphs of the samples.
-Intended for use with LMMS | Plugin.
+Visual presentation of the wav graphs of the samples. Intended for use with LMMS | Plugin.
+
+The samples graph is adaptive to 1000ms playtime.
+Aligned to left side of the grid.
+If you click on the graph, it plays the corresponding sound.
+F5 is likely to rescan the last operated folder.
+
+There have been multiple files and dirs checks even after scanning is complete.
+This is intention and works as safety measure for the runtime.
 
 <img width="910" height="639" alt="Screenshot From 2026-08-15 02-12-46" src="https://github.com/user-attachments/assets/eb4888a3-7d91-446d-a3e7-64c8be829562" />
 
