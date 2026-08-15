@@ -1,6 +1,9 @@
 Work in progress!!
 
-Visual presentation of the wav graphs of the samples. Intended for use with LMMS | Plugin.
+Aggregated visual presentation of the *.wav graphs of the samples.
+
+Intended for use with LMMS | Plugin as Drum sample analysis.
+Tip: For better graphs, remove too long or full song wav audios from your scanning folder.
 
 The samples graph is adaptive to 1000ms playtime.
 Aligned to left side of the grid.
@@ -9,6 +12,12 @@ F5 is likely to rescan the last operated folder.
 
 There have been multiple files and dirs checks even after scanning is complete.
 This is intention and works as safety measure for the runtime.
+
+Usage:
+
+```
+./scanner /PATH/TO/WAVs/
+```
 
 <img width="910" height="639" alt="Screenshot From 2026-08-15 02-12-46" src="https://github.com/user-attachments/assets/eb4888a3-7d91-446d-a3e7-64c8be829562" />
 
