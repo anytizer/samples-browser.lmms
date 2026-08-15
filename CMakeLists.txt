@@ -15,6 +15,7 @@ find_package(Qt5 REQUIRED COMPONENTS Core Widgets Multimedia)
 
 # Define your source executable
 add_executable(scanner 
+    src/Scanner.h
     src/main.cpp
 )
 
