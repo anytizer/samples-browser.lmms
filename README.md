@@ -1,5 +1,10 @@
 Work in progress!!
 
+Visual presentation of the wav graphs of the samples.
+Intended for use with LMMS | Plugin.
+
+<img width="910" height="639" alt="Screenshot From 2026-08-15 02-12-46" src="https://github.com/user-attachments/assets/eb4888a3-7d91-446d-a3e7-64c8be829562" />
+
 ## MultiMedia
 
 ```
