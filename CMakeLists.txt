@@ -15,7 +15,16 @@ find_package(Qt5 REQUIRED COMPONENTS Core Widgets Multimedia)
 
 # Define your source executable
 add_executable(scanner 
-    src/Scanner.h
+    src/PCH.h
+    src/Configurations.h
+    src/FormatFileSize.h
+    src/WavInfo.h
+    src/WaveformDelegate.h
+    src/ParseWavFile.h
+    src/PopulateWavTable.h
+    src/ProcessGUI.h
+    src/KeysFilter.h
+    src/CreateWaveformImage
     src/main.cpp
 )
 

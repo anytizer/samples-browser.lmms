@@ -1,4 +1,9 @@
-#include "Scanner.h"
+#include <QApplication>
+#include <QCoreApplication>
+#include <QPalette>
+
+#include "ProcessGUI.h"
+#include "KeysFilter.h"
 
 int main(int argc, char *argv[])
 {
@@ -54,5 +59,6 @@ int main(int argc, char *argv[])
     window.setFixedSize(900, 600);
     window.show();    
 
-    return app.exec();
+    app.exec();
+    return 0;
 }
