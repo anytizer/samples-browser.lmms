@@ -10,10 +10,8 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-# Find the required Qt5 components
 find_package(Qt5 REQUIRED COMPONENTS Core Widgets Multimedia)
 
-# Define your source executable
 add_executable(scanner 
     src/PCH.h
     src/Configurations.h
@@ -21,6 +19,7 @@ add_executable(scanner
     src/WavInfo.h
     src/WaveformDelegate.h
     src/ParseWavFile.h
+    src/CustomTableWidget.h
     src/PopulateWavTable.h
     src/ProcessGUI.h
     src/KeysFilter.h
@@ -48,7 +47,7 @@ add_executable(scanner_tests tests/Checks.cpp)
 target_link_libraries(scanner_tests PRIVATE Qt5::Test)
 add_test(NAME scanner_tests COMMAND scanner_tests)
 
-# Automatically run the test binary after building 'scanner_tests'
+# Automatically run the tests binary after building 'scanner_tests'
 add_custom_command(
     TARGET scanner_tests
     POST_BUILD

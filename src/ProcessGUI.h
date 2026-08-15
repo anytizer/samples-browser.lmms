@@ -4,19 +4,15 @@
 
 #include "WavInfo.h"
 #include "WaveformDelegate.h"
+#include "CustomTableWidget.h"
 #include "PopulateWavTable.h"
 #include "ParseWavFile.h"
 
-void processGUI(QTableWidget& table, QString samplesPath, int maxSamples)
+void processGUI(CustomTableWidget& table, QString samplesPath)
 {
-    // QDir samplesDir(samplesPath);
-    // //QFileInfo samplesDir(samplesPath);
-    // if (!samplesDir.exists() || !samplesDir.isDir()) {
-    //     qDebug() << "It exists and it is a directory.";
-    //     return;
-    // }
-
+    table.clearContents();
     table.setColumnCount(7); // 0 - 6
+    table.setRowCount(0); // we will add rows later
 
     table.setHorizontalHeaderLabels({
         "Sample File Name",
@@ -128,7 +124,7 @@ void processGUI(QTableWidget& table, QString samplesPath, int maxSamples)
         QFile sample(fileName);
 
         // do not process large samples
-        if(sample.size()>=102400) continue;
+        if(sample.size()>=SCANNER_SAMPLES_FILESIZE_LIMIT) continue;
 
         QString fullPath = samplesDir.absoluteFilePath(fileName);
 
@@ -140,13 +136,13 @@ void processGUI(QTableWidget& table, QString samplesPath, int maxSamples)
             info.bitsPerSample > 0 &&
             info.dataSize > 0 &&
             // info.fileSize <= 102400 &&
-            info.durationSeconds <= 10.0f
+            info.durationSeconds <= SCANNER_SAMPLES_MAX_PLAYTIME
         ) // 100kb
         {
             wavList.append(info);
         }
 
-        if(++counter > maxSamples) break;
+        if(++counter > SCANNER_SAMPLES_COUNT_LIMIT) break;
     }
 
 

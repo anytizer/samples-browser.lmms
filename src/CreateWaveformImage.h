@@ -293,11 +293,7 @@ QImage createWaveformImage(
                 minValue *
                 (height / 2 - 2));
 
-        painter.drawLine(
-            x,
-            y1,
-            x,
-            y2);
+        painter.drawLine(x, y1, x, y2);
     }
 
     return image;

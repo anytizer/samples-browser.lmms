@@ -16,5 +16,5 @@ struct WavInfo {
     quint32 dataSize = 0;
     qint64 dataOffset = 0;
 
-    double durationSeconds = 0.0;
+    double durationSeconds = 0.0; // @todo make ms instead of seconds.
 };

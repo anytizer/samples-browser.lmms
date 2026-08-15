@@ -24,11 +24,9 @@ protected:
             
             // 3. Check if the pressed key is exactly F5
             if (keyEvent->key() == Qt::Key_F5) {
-                m_table->clearContents();
-                m_table->setRowCount(0);
-                
                 // @todo treat the command line parameters first
-                processGUI(*m_table, SCANNER_SAMPLES_DIRECTORY, SCANNER_SAMPLES_LIMIT);
+                // @todo Using custom table widget
+                //processGUI(&m_table, SCANNER_SAMPLES_DIRECTORY);
 
                 qDebug() << "The F5 key was pressed.";
 

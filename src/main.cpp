@@ -2,8 +2,15 @@
 #include <QCoreApplication>
 #include <QPalette>
 
+#include "CustomTableWidget.h"
 #include "ProcessGUI.h"
 #include "KeysFilter.h"
+
+bool isDir(QString directory)
+{
+    QFileInfo fileInfo(directory);
+    return fileInfo.exists() && fileInfo.isDir();
+}
 
 int main(int argc, char *argv[])
 {
@@ -14,6 +21,7 @@ int main(int argc, char *argv[])
     if (args.size() > 1) {
         samplesDirectory = args.at(1);
     }
+    if(!isDir(samplesDirectory)) return -1;
 
     // -----------------------------------------------------
     // Dark application palette
@@ -39,10 +47,14 @@ int main(int argc, char *argv[])
     
     QVBoxLayout layout(&window);
     
-    QTableWidget table;
+    //CustomTableWidget *table = new CustomTableWidget(0, 7, this);
+    CustomTableWidget table(0, 7, &window);
+     // Create our custom table with 4 rows and 7 columns
+    
+     // QTableWidget table;
     
     // populates max top 50 samples in table | no trailing /
-    processGUI(table, samplesDirectory, SCANNER_SAMPLES_LIMIT);
+    processGUI(table, samplesDirectory);
     layout.addWidget(&table, 1);
 
     KeysFilter *filter = new KeysFilter(&table);
