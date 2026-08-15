@@ -24,7 +24,21 @@
 #include <QSound>
 #include <QSoundEffect>
 #include <QUrl>
+#include <QKeyEvent>
 #include <QDebug>
+
+/**
+ * Which directory to scan for?
+ * ./samples
+ * ../samples
+ * /PATH/samples
+ */
+#define SCANNER_SAMPLES_DIRECTORY "../samples"
+
+/**
+ * Set according to your computer's capacities
+ */
+#define SCANNER_SAMPLES_LIMIT 50
 
 // ---------------------------------------------------------
 // WAV metadata
@@ -654,11 +668,12 @@ void populateWavTable(QTableWidget &table, const QList<WavInfo> &wavList, double
 
 void processGUI(QTableWidget& table, QString samplesPath, int maxSamples)
 {
-    // -----------------------------------------------------
-    // Table
-    // -----------------------------------------------------
-
-    // QTableWidget table;
+    // QDir samplesDir(samplesPath);
+    // //QFileInfo samplesDir(samplesPath);
+    // if (!samplesDir.exists() || !samplesDir.isDir()) {
+    //     qDebug() << "It exists and it is a directory.";
+    //     return;
+    // }
 
     table.setColumnCount(7); // 0 - 6
 
@@ -851,8 +866,66 @@ void processGUI(QTableWidget& table, QString samplesPath, int maxSamples)
 }
 
 
+
+class KeysFilter : public QObject {
+private:
+    QTableWidget* m_table;
+    //QWidget* m_window;
+
+public:
+    explicit KeysFilter(QTableWidget *table) 
+        : QObject(table),
+        m_table(table)//,
+        //m_window(window)
+        {}
+
+protected:
+    // This function automatically intercepts events
+    bool eventFilter(QObject *obj, QEvent *event) override {
+        // 1. Check if the event is a key press
+        if (event->type() == QEvent::KeyPress) {
+            // 2. Convert the generic event into a key event
+            QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
+            
+            // 3. Check if the pressed key is exactly F5
+            if (keyEvent->key() == Qt::Key_F5) {
+                m_table->clearContents();
+                m_table->setRowCount(0);
+                
+                // @todo treat the command line parameters first
+                processGUI(*m_table, SCANNER_SAMPLES_DIRECTORY, SCANNER_SAMPLES_LIMIT);
+
+                qDebug() << "The F5 key was pressed.";
+                
+                // Return true to stop the event from doing anything else
+                return true; 
+            }
+
+            if (keyEvent->key() == Qt::Key_Escape) {
+                // in main window, exit.
+                // if called under LMMS, hide
+                qDebug() << "The ESC key was pressed.";
+            }
+        }
+        // Pass all other events (like mouse movement) back to the window
+        return QObject::eventFilter(obj, event);
+    }
+};
+
+
 int main(int argc, char *argv[])
 {
+    QApplication app(argc, argv);
+
+
+    QString samplesDirectory = SCANNER_SAMPLES_DIRECTORY;
+    QStringList args = QCoreApplication::arguments();
+    if (args.size() > 1) {
+        samplesDirectory = args.at(1);
+    }
+
+
+
     // -----------------------------------------------------
     // Dark application palette
     // -----------------------------------------------------
@@ -870,17 +943,31 @@ int main(int argc, char *argv[])
     darkPalette.setColor(QPalette::Highlight, QColor("#264F78"));
     darkPalette.setColor(QPalette::HighlightedText, QColor("#ffffff"));
     
-    QApplication app(argc, argv);
     app.setPalette(darkPalette);
 
     QWidget window;
     window.setWindowTitle("WAV Samples Browser and Preview");
+    
     QVBoxLayout layout(&window);
     
     QTableWidget table;
-    processGUI(table, "../samples", 50); // populates max top 50 samples in table | no trailing /
+    
+    // populates max top 50 samples in table | no trailing /
+    processGUI(table, samplesDirectory, SCANNER_SAMPLES_LIMIT);
     layout.addWidget(&table, 1);
+
+    KeysFilter *filter = new KeysFilter(&table);
+    window.installEventFilter(filter);
+    
+    // QKeyEvent fakeF5Press(
+    //     QEvent::KeyPress,  // The type of event
+    //     Qt::Key_F5,        // The key code for F5
+    //     Qt::NoModifier     // No Shift, Ctrl, or Alt held down
+    // );
+    // QCoreApplication::sendEvent(filter, &fakeF5Press); // processGUI() call simulation
+
     window.resize(900, 600);
+    window.setFixedSize(900, 600);
     window.show();    
 
     return app.exec();
