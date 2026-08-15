@@ -652,7 +652,7 @@ void populateWavTable(QTableWidget &table, const QList<WavInfo> &wavList, double
     }
 }
 
-void processGUI(QTableWidget& table)
+void processGUI(QTableWidget& table, QString samplesPath, int maxSamples)
 {
     // -----------------------------------------------------
     // Table
@@ -753,7 +753,7 @@ void processGUI(QTableWidget& table)
     // Scan WAV files at runtime
     // -----------------------------------------------------
 
-    QDir samplesDir("../samples");
+    QDir samplesDir(samplesPath);
 
     QStringList filePaths =
         samplesDir.entryList(
@@ -766,6 +766,7 @@ void processGUI(QTableWidget& table)
 
     QList<WavInfo> wavList;
 
+    int counter = 0;
     for (const QString &fileName : filePaths) {
         
         QFile sample(fileName);
@@ -783,13 +784,15 @@ void processGUI(QTableWidget& table)
             info.bitsPerSample > 0 &&
             info.dataSize > 0 &&
             // info.fileSize <= 102400 &&
-            info.durationSeconds <= 10.0f
+            info.durationSeconds <= 10.0f &&
+            counter <= maxSamples
         ) // 100kb
         {
-            wavList.append(
-                info);
+            wavList.append(info);
+            ++counter;
         }
     }
+
 
     // -----------------------------------------------------
     // Determine common waveform duration.
@@ -819,7 +822,7 @@ void processGUI(QTableWidget& table)
     QObject::connect(
         &table,
         &QTableWidget::cellClicked, // cellDoubleClicked | cellClicked
-        [&table](
+        [&table, samplesPath](
             int row,
             int column) {
 
@@ -829,7 +832,7 @@ void processGUI(QTableWidget& table)
             if (!item) return;
             
             QSoundEffect *m_sound = new QSoundEffect;
-            QString wavfile = QDir::cleanPath(QString("../samples/%1").arg(item->text()));
+            QString wavfile = QDir::cleanPath(QString("%1/%2").arg(samplesPath).arg(item->text()));
             m_sound->setSource(QUrl::fromLocalFile(wavfile));
             m_sound->setVolume(1.0f);
             m_sound->setLoopCount(1); // QSoundEffect::Infinite
@@ -869,7 +872,7 @@ int main(int argc, char *argv[])
     QVBoxLayout layout(&window);
     
     QTableWidget table;
-    processGUI(table); // populates samples in table
+    processGUI(table, "../samples", 50); // populates max top 50 samples in table | no trailing /
     layout.addWidget(&table, 1);
     window.resize(900, 600);
     window.show();    
