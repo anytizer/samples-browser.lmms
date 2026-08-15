@@ -24,7 +24,7 @@ add_executable(scanner
     src/PopulateWavTable.h
     src/ProcessGUI.h
     src/KeysFilter.h
-    src/CreateWaveformImage
+    src/CreateWaveformImage.h
     src/main.cpp
 )
 
@@ -40,3 +40,21 @@ set_target_properties(scanner PROPERTIES
     WIN32_EXECUTABLE ON
     MACOSX_BUNDLE ON
 )
+
+# Testing: scanner_tests
+enable_testing()
+find_package(Qt5 REQUIRED COMPONENTS Test)
+add_executable(scanner_tests tests/Checks.cpp)
+target_link_libraries(scanner_tests PRIVATE Qt5::Test)
+add_test(NAME scanner_tests COMMAND scanner_tests)
+
+# Automatically run the test binary after building 'scanner_tests'
+add_custom_command(
+    TARGET scanner_tests
+    POST_BUILD
+    COMMAND $<TARGET_FILE:scanner_tests>
+    COMMENT "Running unit tests..."
+)
+
+# make && ctest --output-on-failure
+# ctest

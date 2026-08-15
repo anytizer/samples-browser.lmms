@@ -47,7 +47,10 @@ cd build
 cmake -S .. .
 make
 
+ctest
+
 ./scanner
+./scanner_tests
 ```
 
 ## Runtime Safety
@@ -70,4 +73,4 @@ for i in *.flac; do ffmpeg -i "$i" "${i%.flac}.wav"; done
 - `F5` will rescan the folder.
 - `Esc` will close the window.
 - ~~Pass samples directory as parameter in command line.~~
-- Upgrade to Qt6, particularly using Multimedia
+- Upgrade to Qt6, particularly using Multimedia.

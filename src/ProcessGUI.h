@@ -136,17 +136,17 @@ void processGUI(QTableWidget& table, QString samplesPath, int maxSamples)
 
         if (info.sampleRate > 0 &&
             info.channels > 0 &&
-            info.channels <= 2 &&
+            // info.channels <= 2 &&
             info.bitsPerSample > 0 &&
             info.dataSize > 0 &&
             // info.fileSize <= 102400 &&
-            info.durationSeconds <= 10.0f &&
-            counter <= maxSamples
+            info.durationSeconds <= 10.0f
         ) // 100kb
         {
             wavList.append(info);
-            ++counter;
         }
+
+        if(++counter > maxSamples) break;
     }
 
 
