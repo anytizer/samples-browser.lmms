@@ -230,7 +230,7 @@ void processGUI(CustomTableWidget& table, QString samplesDirectory, std::functio
 
 
     // -----------------------------------------------------
-    // Double-click handler on entire row
+    // Double-click handler on entire row to send a callback
     // -----------------------------------------------------
 
     QObject::connect(

@@ -41,6 +41,7 @@ set_target_properties(scanner PROPERTIES
 )
 
 # Define where the target should be installed
+# sudo make install
 install(TARGETS scanner DESTINATION bin)
 
 # Testing: scanner_tests

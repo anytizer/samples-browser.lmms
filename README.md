@@ -98,6 +98,11 @@ DO NOT use root account.
 - From an array, populate column width, name, resizability
 - ~~Pass samples directory as parameter in command line.~~
 - ~~Set max col width of wav graphs to 300.~~
-- Pass a function pointer to send a sample to LMMS Pattern Editor.
-- QSound/Effect to repalce with LMMS Native features.
+- ~~Pass a function pointer to send a sample to LMMS Pattern Editor.~~
+- QSound/Effect to repalce with LMMS Native features (Sample Play Handle)
 - When a tombstone track created for sample, do not add again. May be, track by index?
+    - sometimes, the tracks are not painted.
+- Fix threading realated wanrings.
+- Inform that CMake for LMMS was modified (added Qt6::Multimedia)
+- Change plguin's window title from within the code
+- Limit the #define constants within application/plugin's namespace.
