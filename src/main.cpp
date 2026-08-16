@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
     app.setPalette(darkPalette);
 
     QWidget window;
-    window.setWindowTitle("WAV Samples Browser and Preview");
+    window.setWindowTitle("Samples Visualizer - Press F5 key to refresh");
     
     QVBoxLayout layout(&window);
     

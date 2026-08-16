@@ -23,7 +23,7 @@ namespace lmms::gui
 	ScannerView::ScannerView(Scanner* plugin)
 	: ToolPluginView(plugin)
 	, m_plugin(plugin)
-	, m_samplesDirectory("./samples/")
+	, m_samplesDirectory(SCANNER_SAMPLES_DIRECTORY)
 	, m_table(new CustomTableWidget(0, 0, this))
 	{
 		this->setWindowTitle("Samples Visualizer - Press F5 key to refresh");
