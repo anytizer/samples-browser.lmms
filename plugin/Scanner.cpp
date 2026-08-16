@@ -16,7 +16,7 @@ namespace lmms
 		Plugin::Descriptor PLUGIN_EXPORT scanner_plugin_descriptor =
 		{
 			LMMS_STRINGIFY(PLUGIN_NAME),
-			"Scanner",
+			"Scanner - Press F5 Key to scan samples",
 			QT_TRANSLATE_NOOP("PluginBrowser", "Preview and Import wav samples"),
 			"@anytizer <anytizer@users.noreply.github.com>",
 			0x0100,

@@ -13,19 +13,27 @@ namespace lmms::gui
 	ScannerView::ScannerView(Scanner* plugin)
 	: ToolPluginView(plugin)
 	, m_plugin(plugin)
-	, m_samplesDirectory("")
+	, m_samplesDirectory("./samples/")
 	, m_table(new CustomTableWidget(0, 0, this))
 	{
 		this->setAcceptDrops(true);
 		this->setMinimumSize(900, 600);
 		
-		// process();
+
 		// KeysFilter *filter = new KeysFilter(m_table);
 		// this->installEventFilter(filter);
+
+		// on opening LMMS and first time window activation
 		if(m_samplesDirectory=="")
+		{
 			ask();
-		
-		
+		}			
+		else
+		{
+			process();
+			m_samplesDirectory = "";
+		}
+
 		QWidget* pw = parentWidget();
 		if (pw!=nullptr)
 		{
@@ -47,7 +55,7 @@ namespace lmms::gui
 			QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
 			if (keyEvent->key() == Qt::Key_F5) {
 				ask();
-				qDebug() << "F5 key caught by event filter!";
+				qDebug() << "F5 key caught by event filter on Scanner!";
 				return;// true; // Handled/Intercepted
 			}
 		}
@@ -59,8 +67,8 @@ namespace lmms::gui
 		QFileDialog dialog(this);
 		dialog.setFileMode(QFileDialog::Directory);
 		dialog.setOption(QFileDialog::ShowDirsOnly, true);
-		dialog.setWindowTitle(tr("Select Directory"));
-		dialog.setDirectory(QDir::homePath());
+		dialog.setWindowTitle(tr("Select One-Shots Samples Directory"));
+		dialog.setDirectory(m_samplesDirectory); // QDir::homePath()
 
 		if (dialog.exec() == QDialog::Accepted) {
 			QStringList selectedDirs = dialog.selectedFiles();
@@ -76,26 +84,21 @@ namespace lmms::gui
 
 	void ScannerView::process()
 	{
-
-		// clean layout, table...
-
-
-
 		this->m_table = new CustomTableWidget(0, 0, this);
-		processGUI(*this->m_table, m_samplesDirectory);
+		processGUI(*this->m_table, m_samplesDirectory, [this](QString sample) { this->callback(sample); });
 
-		//clearLayout(this->layout());
 		delete this->layout();
 
 		QVBoxLayout* mainLayout = new QVBoxLayout(this);
-		QVBoxLayout* tl = new QVBoxLayout(); // Parent can be set via layout nesting or constructor
+		QVBoxLayout* tl = new QVBoxLayout();
 		tl->addWidget(m_table, 1);
 		mainLayout->addLayout(tl);
+		this->setLayout(new QVBoxLayout(this));
+	}
 
-
-
-		
-		// 
-		// this->setLayout(new QVBoxLayout(this));
+	void ScannerView::callback(QString sample)
+	{
+		qDebug() << "ScannerView::callback() called with parameter: " << sample;
+		qDebug() << "I will now add a beat pattern.";
 	}
 } // namespace

@@ -1,3 +1,6 @@
+#include <iostream>
+#include <functional>
+
 #include "PCH.h"
 
 #include "Configurations.h"
@@ -8,7 +11,8 @@
 #include "PopulateWavTable.h"
 #include "ParseWavFile.h"
 
-void processGUI(CustomTableWidget& table, QString samplesDirectory)
+// @todo Pass a function pointer as parameter
+void processGUI(CustomTableWidget& table, QString samplesDirectory, std::function<void(QString)> callback)
 {
     /**
      * DO NOT ALTER the total size: 7 columns
@@ -131,7 +135,7 @@ void processGUI(CustomTableWidget& table, QString samplesDirectory)
             QDir::Readable,
             QDir::Name);
 
-    qDebug() << filePaths;
+    // qDebug() << filePaths;
     
     QList<WavInfo> wavList;
 
@@ -232,7 +236,7 @@ void processGUI(CustomTableWidget& table, QString samplesDirectory)
     QObject::connect(
         &table,
         &QTableWidget::cellDoubleClicked,
-        [&table, samplesDirectory](
+        [&table, samplesDirectory, callback](
             int row,
             int column) {
 
@@ -241,6 +245,12 @@ void processGUI(CustomTableWidget& table, QString samplesDirectory)
             // row, 0 | first item, full wav filename
             QTableWidgetItem *item = table.item(row, SCANNER_SAMPLES_COLUMN0);
             if (!item) return;
+
+            if(callback!=nullptr)
+            {
+                QString sample = QString("%1/%2").arg(samplesDirectory).arg(item->text());
+                callback(sample);
+            }
 
             qDebug() << "Sending Item to LMMS:" << samplesDirectory << item->text();
         }

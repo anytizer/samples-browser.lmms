@@ -22,6 +22,11 @@ namespace lmms
             void saveSettings(QDomDocument&, QDomElement&) override {}
 	        void loadSettings(const QDomElement&) override {}
 
-            gui::PluginView* instantiateView(QWidget*) override { return new gui::ScannerView(this); }
+            gui::PluginView* instantiateView(QWidget*) override
+            {
+                auto plugin = new gui::ScannerView(this);
+                // this->setTitle("Scanner - Press F5 Key to scan samples");
+                return plugin;
+            }
     };
 } // namespace lmms

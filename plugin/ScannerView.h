@@ -29,6 +29,7 @@ namespace lmms::gui
 			void closeEvent(QCloseEvent*) override;
 			void keyPressEvent(QKeyEvent*) override;
 
-			void ask(); //  calls ==> process();
+			void ask(); // calls ==> process();
+			void callback(QString sample);
 	};
 }

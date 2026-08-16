@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
     QVBoxLayout layout(&window);
     
     CustomTableWidget table(0, 0, &window); // @see SCANNER_SAMPLES_COLUMNX
-    processGUI(table, samplesDirectory);
+    processGUI(table, samplesDirectory, nullptr);
     layout.addWidget(&table, 1);
 
     KeysFilter *filter = new KeysFilter(&table);

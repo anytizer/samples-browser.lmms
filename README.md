@@ -90,3 +90,5 @@ DO NOT use root account.
 - From an array, populate column width, name, resizability
 - ~~Pass samples directory as parameter in command line.~~
 - ~~Set max col width of wav graphs to 300.~~
+- Pass a function pointer to send a sample to LMMS Pattern Editor.
+- QSound/Effect to repalce with LMMS Native features.
