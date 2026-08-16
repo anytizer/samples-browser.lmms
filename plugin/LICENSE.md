@@ -1,0 +1,1 @@
+Licenses: Alike as in LMMS
