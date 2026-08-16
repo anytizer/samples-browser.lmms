@@ -78,3 +78,4 @@ You MUST own the folder; or have read/write permissions.
 - Show durations in ms.
 - Too long file names are trimmed and accessed in alternative manner.
 - Set max col width of wav graphs to 300.
+- `cmake -S .. . -DCMAKE_PREFIX_PATH="C:\Qt\6.11.1"`

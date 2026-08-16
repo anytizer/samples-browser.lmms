@@ -284,8 +284,3 @@ QImage createWaveformImage(
 
     return image;
 }
-
-
-
-
-
