@@ -90,6 +90,15 @@ mv *.wav wavs/
 scanner wavs
 ```
 
+### PowerShell
+
+```
+Get-ChildItem *.ogg | ForEach-Object {
+    $newName = $_.BaseName + ".wav"
+    ffmpeg -loglevel quiet -i $_.FullName -c:a pcm_f32le $newName
+}
+```
+
 You MUST own that "folder"; or have read/write permissions.
 DO NOT use root account.
 
