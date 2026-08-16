@@ -2,10 +2,6 @@
 
 Work in progress!!
 
-This piece of software has 2 operating modes:
-- Standalone Qt5 application.
-- Qt6 based plugin for LMMS
-
 It aggregates visual presentation of the uncompressed *.wav samples graphs.
 The graph shows loudness and duration of the sample in the list.
 You can then decide which samples to include in your Pattern Editor track.
@@ -24,6 +20,12 @@ Best suited for drums, kicks, snares, clicks, shaker, pop, tom like short and on
 
 There have been multiple files and dirs checks even after scanning is complete.
 This is intentional and works as safety measure during the runtime.
+
+This piece of software has 2 operating modes:
+- Standalone Qt5 application.
+- Qt6 based plugin for LMMS
+
+Each of them handles the audio play in their own manners, using callbacks to common codebase.
 
 ## Personalized workflow
 
@@ -114,24 +116,29 @@ DO NOT use root account.
 
 ## ToDo
 
-- ~~`F5` will rescan the folder.~~
-- `Esc` will close the window / hide.
 - Show durations in ms.
 - Upgrade to Qt6, particularly using Qt6::Multimedia.
+- Inform that CMake for LMMS was modified (added Qt6::Multimedia)
+    - almost unuseful now.
 - Too long file names are trimmed and accessed in alternative manner.
-- `cmake -S .. . -DCMAKE_PREFIX_PATH="C:\Qt\6.11.1"`
+- Windows: `cmake -S .. . -DCMAKE_PREFIX_PATH="C:\Qt\6.11.1"`
 - From an array, populate column width, name, resizability
+- Handle key presses:
+    - ~~`F5` will rescan the folder.~~
+    - `Esc` will hide the window.
+    - Properly close when ESC.
+    - Traces remain in LMMS Mode.
+    - Deleting layout is not efficient.
 - ~~Pass samples directory as parameter in command line.~~
 - ~~Set max col width of wav graphs to 300.~~
 - ~~Pass a function pointer to send a sample to LMMS Pattern Editor.~~
-- QSound/Effect to repalce with LMMS Native features (Sample Play Handle)
+- ~~QSound/Effect to repalce with LMMS Native features (Sample Play Handle)~~ using callbacks.
 - When a tombstone track created for sample, do not add again. May be, track by index?
-    - sometimes, the tracks are not painted.
+    - Sometimes, the sample tracks are not painted.
+    - Add Pattern track manually, once to ease.
 - Fix threading realated wanrings.
-- Inform that CMake for LMMS was modified (added Qt6::Multimedia)
 - Change plguin's window title from within the code
-- Limit the #define constants within application/plugin's namespace.
-- Deleting layout is not efficient. Traces in console.
+- Limit the #define'ed constants within application/plugin's namespace.
 - Reduce console logs.
-- Disconnect player immediately if mouse was moved away
+- Disconnect player immediately if mouse moved away; not waiting to finish the long sample.
     - eg. when playing longer samples, thread stuck in playing full length.

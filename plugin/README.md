@@ -12,7 +12,13 @@
     - [x] Standalone as well as LMMS Integrated
 
 
-# Except: main.cpp
+# Installation / Setup
+
+Except: main.cpp, symlink individual files under logic/ folder.
+
+Then:
+- Create a symlink of this folder (plugin) as "Scanner" under LMMS/plugins/.
+- Enable Scanner Plugin to compile with LMMS.
 
 ```
 mkdir logic
@@ -32,6 +38,3 @@ ln -s ../../src/WavInfo.h WavInfo.h
 
 Do NOT edit any files under logic/.
 This is just a copy of standalone application!
-
-- Create a symlink of this folder as "Scanner" under LMMS/plugins/.
-- Enable Scanner Plugin to compile.

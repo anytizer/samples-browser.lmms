@@ -28,8 +28,9 @@ namespace lmms::gui
 	{
 		this->setAcceptDrops(true);
 		this->setMinimumSize(900, 600);
+		this->setFixedSize(900, 600);
+    	this->resize(900, 600);
 		
-
 		// KeysFilter *filter = new KeysFilter(m_table);
 		// this->installEventFilter(filter);
 
@@ -65,8 +66,15 @@ namespace lmms::gui
 			QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
 			if (keyEvent->key() == Qt::Key_F5) {
 				ask();
-				qDebug() << "F5 key caught by event filter on Scanner!";
+				// qDebug() << "F5 key caught by event filter on Scanner!";
 				return;// true; // Handled/Intercepted
+			}
+
+			if (keyEvent->key() == Qt::Key_Escape)
+			{
+				// @todo It is NOT closing properly.
+				this->hide();
+				return;
 			}
 		}
 		//return QObject::eventFilter(watched, event);
@@ -97,29 +105,40 @@ namespace lmms::gui
 		this->m_table = new CustomTableWidget(0, 0, this);
 		processGUI(*this->m_table, m_samplesDirectory, [this](QString sample) { this->callback1(sample); }, [this](QString sample) { this->callback2(sample); });
 
+		QLayout* layout = this->layout();
+		if (layout) {
+			QLayoutItem* item;
+			while ((item = layout->takeAt(0)) != nullptr) {
+				if (QWidget* widget = item->widget()) {
+					widget->deleteLater();
+				}
+				delete item;
+			}
+		}
 		delete this->layout();
+
 
 		QVBoxLayout* mainLayout = new QVBoxLayout(this);
 		QVBoxLayout* tl = new QVBoxLayout();
+
 		tl->addWidget(m_table, 1);
 		mainLayout->addLayout(tl);
-		this->setLayout(new QVBoxLayout(this));
+
+		// QVBoxLayout* mainLayout = new QVBoxLayout(this);
+		// QVBoxLayout* tl = new QVBoxLayout();
+		// tl->addWidget(m_table, 1);
+		// mainLayout->addLayout(tl);
+		// this->setLayout(new QVBoxLayout(this));
 	}
 
 	void ScannerView::callback1(QString sample)
 	{
+		/**
+		 * Safety even when file missing!
+		 */
 		QFile wf(sample);
 		if(wf.exists())
 		{
-		    /**
-		     * Safety even when file missing!
-		     */
-		    // QSoundEffect *m_sound = new QSoundEffect;
-		    // m_sound->setSource(QUrl::fromLocalFile(sample));
-		    // m_sound->setVolume(1.0f);
-		    // m_sound->setLoopCount(1); // QSoundEffect::Infinite
-		    // m_sound->play();
-
 		    Engine::audioEngine()->addPlayHandle(new SamplePlayHandle(sample));
 		}
 	}

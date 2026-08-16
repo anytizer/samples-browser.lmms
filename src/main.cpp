@@ -21,18 +21,28 @@ void help()
     qDebug("Help:\n\n    scanner /path/to/wav/samples/\n");
 }
 
+/**
+ * Sould preview callback
+ */
 void callback1(QString sample)
 {
     /**
      * Safety even when file missing!
      */
-    QSoundEffect *m_sound = new QSoundEffect;
-    m_sound->setSource(QUrl::fromLocalFile(sample));
-    m_sound->setVolume(1.0f);
-    m_sound->setLoopCount(1); // QSoundEffect::Infinite
-    m_sound->play();
+    QFile wf(sample);
+	if(wf.exists())
+    {
+        QSoundEffect *m_sound = new QSoundEffect;
+        m_sound->setSource(QUrl::fromLocalFile(sample));
+        m_sound->setVolume(1.0f);
+        m_sound->setLoopCount(1); // QSoundEffect::Infinite
+        m_sound->play();
+    }
 }
 
+/**
+ * Track creation callback
+ */
 void callback2(QString sample)
 {
     // add track in LMMS
@@ -94,7 +104,7 @@ int main(int argc, char *argv[])
 
     window.setFixedSize(900, 600);
     window.resize(900, 600);
-    window.show();    
+    window.show();
 
     return app.exec();
 }
