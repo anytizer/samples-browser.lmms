@@ -183,8 +183,7 @@ QImage createWaveformImage(
             }
 
             // First channel only.
-            const char *p =
-                sampleData.constData();
+            const char *p = sampleData.constData();
 
             float value = 0.0f;
 

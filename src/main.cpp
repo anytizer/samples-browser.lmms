@@ -6,10 +6,18 @@
 #include "ProcessGUI.h"
 #include "KeysFilter.h"
 
+/**
+ * Use this function from the Host DAW.
+ */
 bool isDir(QString directory)
 {
     QFileInfo fileInfo(directory);
     return fileInfo.exists() && fileInfo.isDir();
+}
+
+void help()
+{
+    qDebug("Help:\n\n    scanner /path/to/wav/samples/\n");
 }
 
 int main(int argc, char *argv[])
@@ -21,7 +29,12 @@ int main(int argc, char *argv[])
     if (args.size() > 1) {
         samplesDirectory = args.at(1);
     }
-    if(!isDir(samplesDirectory)) return -1;
+
+    if(!isDir(samplesDirectory))
+    {
+        help();
+        return -1;
+    }
 
     // -----------------------------------------------------
     // Dark application palette
@@ -58,12 +71,12 @@ int main(int argc, char *argv[])
     //     Qt::Key_F5,        // The key code for F5
     //     Qt::NoModifier     // No Shift, Ctrl, or Alt held down
     // );
-    // QCoreApplication::sendEvent(filter, &fakeF5Press); // processGUI() call simulation
+    // processGUI() call simulation
+    // QCoreApplication::sendEvent(filter, &fakeF5Press);
 
-    window.resize(900, 600);
     window.setFixedSize(900, 600);
+    window.resize(900, 600);
     window.show();    
 
-    app.exec();
-    return 0;
+    return app.exec();
 }

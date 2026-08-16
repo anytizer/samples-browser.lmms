@@ -37,8 +37,8 @@ void populateWavTable(QTableWidget &table, const QList<WavInfo> &wavList, double
 
         // WAV Graph
         QImage waveform = createWaveformImage(wav, commonDurationSeconds);
-        QTableWidgetItem *graphItem = new QTableWidgetItem();
-        graphItem->setData(Qt::DecorationRole, QPixmap::fromImage(waveform));
-        table.setItem(i, SCANNER_SAMPLES_COLUMN6, graphItem);
+        QTableWidgetItem *graph = new QTableWidgetItem();
+        graph->setData(Qt::DecorationRole, QPixmap::fromImage(waveform));
+        table.setItem(i, SCANNER_SAMPLES_COLUMN6, graph);
     }
 }

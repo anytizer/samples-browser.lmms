@@ -83,8 +83,8 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
     // Column sizing
     // -----------------------------------------------------
 
-    // Filename.
-    table.setColumnWidth(SCANNER_SAMPLES_COLUMN0, 200);
+    // Filename: starting col width
+    table.setColumnWidth(SCANNER_SAMPLES_COLUMN0, 150);
 
     // Playtime.
     // table.setColumnWidth(SCANNER_SAMPLES_COLUMN6, SCANNER_SAMPLES_WAVGRAPH_WIDTH);
@@ -232,7 +232,7 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
             int row,
             int column) {
 
-            // @todo: Sinlge Click is also entertained together.
+            // @todo: stop entertaining single clicks
 
             // row, 0 | first item, full wav filename
             QTableWidgetItem *item = table.item(row, SCANNER_SAMPLES_COLUMN0);

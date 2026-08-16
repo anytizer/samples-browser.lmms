@@ -5,31 +5,24 @@
 class KeysFilter : public QObject {
 private:
     CustomTableWidget* m_table;
-    //QWidget* m_window;
 
 public:
     explicit KeysFilter(CustomTableWidget *table) 
         : QObject(table),
-        m_table(table)//,
-        //m_window(window)
+        m_table(table)
         {}
 
 protected:
-    // This function automatically intercepts events
+    // intercepts events
     bool eventFilter(QObject *obj, QEvent *event) override {
-        // 1. Check if the event is a key press
         if (event->type() == QEvent::KeyPress) {
-            // 2. Convert the generic event into a key event
             QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
-            
-            // 3. Check if the pressed key is exactly F5
+  
             if (keyEvent->key() == Qt::Key_F5) {
-                // @todo treat the command line parameters first
-                // @todo Using custom table widget
+                // @todo treat the command line parameter first, for directory
                 //processGUI(&m_table, SCANNER_SAMPLES_DIRECTORY);
 
                 qDebug() << "The F5 key was pressed.";
-
                 return true; 
             }
 
@@ -40,6 +33,7 @@ protected:
                 return true;
             }
         }
+
         // Pass all other events (like mouse movement) back to the window
         return QObject::eventFilter(obj, event);
     }

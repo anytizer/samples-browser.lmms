@@ -11,8 +11,7 @@ class WaveformDelegate : public QStyledItemDelegate
 {
 public:
 
-    explicit WaveformDelegate(
-        QObject *parent = nullptr)
+    explicit WaveformDelegate(QObject *parent = nullptr)
         : QStyledItemDelegate(parent)
     {
     }

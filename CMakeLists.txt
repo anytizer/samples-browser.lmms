@@ -17,13 +17,13 @@ add_executable(scanner
     src/Configurations.h
     src/FormatFileSize.h
     src/WavInfo.h
+    src/CreateWaveformImage.h
     src/WaveformDelegate.h
     src/ParseWavFile.h
     src/CustomTableWidget.h
     src/PopulateWavTable.h
     src/ProcessGUI.h
     src/KeysFilter.h
-    src/CreateWaveformImage.h
     src/main.cpp
 )
 
@@ -39,6 +39,9 @@ set_target_properties(scanner PROPERTIES
     WIN32_EXECUTABLE ON
     MACOSX_BUNDLE ON
 )
+
+# Define where the target should be installed
+install(TARGETS scanner DESTINATION bin)
 
 # Testing: scanner_tests
 enable_testing()

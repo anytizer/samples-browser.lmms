@@ -5,6 +5,7 @@
  * ./samples
  * ../samples
  * /PATH/samples?
+ * from CLI Parameter?
  * 
  * This value is ignored later, if an argc/argv parameter was passed.
  * Failback default to here.
@@ -26,7 +27,7 @@
  * Pick samples less than 10 seconds
  * Taking longer samples will:
  *  - sqeeeze the wav graph.
- *  - make the shorter graphs invisible to compare
+ *  - make the graphs shorter and invisible to compare
  */
 #define SCANNER_SAMPLES_MAX_PLAYTIME 10.0f
 

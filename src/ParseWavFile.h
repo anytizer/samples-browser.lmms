@@ -70,23 +70,17 @@ WavInfo parseWavFile(const QString &filePath)
             Q_UNUSED(blockAlign);
 
             if (subChunkSize > 16) {
-                file.seek(
-                    file.pos() +
-                    (subChunkSize - 16));
+                file.seek(file.pos() + subChunkSize - 16);
             }
         }
         else if (chunkId == "data") {
 
             info.dataOffset = file.pos();
             info.dataSize = subChunkSize;
-
             break;
         }
         else {
-
-            file.seek(
-                file.pos() +
-                subChunkSize);
+            file.seek(file.pos() + subChunkSize);
         }
     }
 

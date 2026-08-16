@@ -4,11 +4,11 @@ Work in progress!!
 
 Aggregates visual presentation of the uncompressed *.wav samples graphs.
 
-<img width="910" height="639" alt="Screenshot From 2026-08-15 02-12-46" src="https://github.com/user-attachments/assets/eb4888a3-7d91-446d-a3e7-64c8be829562" />
+<img width="910" height="639" alt="Screenshot" src="https://github.com/user-attachments/assets/eb4888a3-7d91-446d-a3e7-64c8be829562" />
 
 Click on sound graph to play/preview the sound.
 
-Intended for use with LMMS DAW.
+Intended for use with LMMS DAW, as a future plugin.
 
 Tip: For better graphs, remove too long or full song .wav audios from your samples folder.
 Best suited for drums, kicks, snares, clicks, shaker, pop, tom like short and one-shot sounds.
@@ -61,21 +61,29 @@ ctest
 ## If samples are not in .wav format, convert them!
 
 ```
-for i in *.ogg; do ffmpeg -loglevel quiet -i "$i" "${i%.ogg}.wav"; done
+for i in *.ogg; do ffmpeg -loglevel quiet -i "$i" -c:a pcm_f32le "${i%.ogg}.wav"; done
 
 # or,
 for i in *.flac; do ffmpeg -loglevel quiet -i "$i" "${i%.flac}.wav"; done
+
+# move the .wav files into wavs/ directory
+mkdir wavs
+mv *.wav wavs/
+
+scanner wavs
 ```
 
-You MUST own the folder; or have read/write permissions.
+You MUST own that "folder"; or have read/write permissions.
+DO NOT use root account.
 
 ## ToDo
 
 - `F5` will rescan the folder.
 - `Esc` will close the window.
-- ~~Pass samples directory as parameter in command line.~~
-- Upgrade to Qt6, particularly using Multimedia.
 - Show durations in ms.
+- Upgrade to Qt6, particularly using Multimedia.
 - Too long file names are trimmed and accessed in alternative manner.
-- Set max col width of wav graphs to 300.
 - `cmake -S .. . -DCMAKE_PREFIX_PATH="C:\Qt\6.11.1"`
+- From an array, populate column width, name, resizability
+- ~~Pass samples directory as parameter in command line.~~
+- ~~Set max col width of wav graphs to 300.~~
