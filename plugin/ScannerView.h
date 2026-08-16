@@ -30,6 +30,7 @@ namespace lmms::gui
 			void keyPressEvent(QKeyEvent*) override;
 
 			void ask(); // calls ==> process();
-			void callback(QString sample);
+			void callback1(QString sample);
+			void callback2(QString sample);
 	};
 }

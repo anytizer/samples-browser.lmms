@@ -2,7 +2,7 @@
 
 Work in progress!!
 
-This piece of software has 2 operating mode:
+This piece of software has 2 operating modes:
 - Standalone Qt5 application.
 - Qt6 based plugin for LMMS
 
@@ -77,8 +77,12 @@ ctest
 
 ## If samples are not in .wav format, convert them!
 
+Alert: Not recommended convert and depend on the files. Only for references.
+
+### Linux Shell
+
 ```
-for i in *.ogg; do ffmpeg -loglevel quiet -i "$i" -c:a pcm_f32le "${i%.ogg}.wav"; done
+for i in *.ogg; do ffmpeg -loglevel quiet -i "$i" "${i%.ogg}.wav"; done
 
 # or,
 for i in *.flac; do ffmpeg -loglevel quiet -i "$i" "${i%.flac}.wav"; done
@@ -95,9 +99,11 @@ scanner wavs
 ```
 Get-ChildItem *.ogg | ForEach-Object {
     $newName = $_.BaseName + ".wav"
-    ffmpeg -loglevel quiet -i $_.FullName -c:a pcm_f32le $newName
+    ffmpeg -loglevel quiet -i $_.FullName $newName
 }
 ```
+
+Optionally pass parameter: `-c:a pcm_f32le`.
 
 You MUST own that "folder"; or have read/write permissions.
 DO NOT use root account.
@@ -108,10 +114,10 @@ DO NOT use root account.
 
 ## ToDo
 
-- `F5` will rescan the folder.
-- `Esc` will close the window.
+- ~~`F5` will rescan the folder.~~
+- `Esc` will close the window / hide.
 - Show durations in ms.
-- Upgrade to Qt6, particularly using Multimedia.
+- Upgrade to Qt6, particularly using Qt6::Multimedia.
 - Too long file names are trimmed and accessed in alternative manner.
 - `cmake -S .. . -DCMAKE_PREFIX_PATH="C:\Qt\6.11.1"`
 - From an array, populate column width, name, resizability
@@ -127,3 +133,5 @@ DO NOT use root account.
 - Limit the #define constants within application/plugin's namespace.
 - Deleting layout is not efficient. Traces in console.
 - Reduce console logs.
+- Disconnect player immediately if mouse was moved away
+    - eg. when playing longer samples, thread stuck in playing full length.

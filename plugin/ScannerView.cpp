@@ -16,6 +16,8 @@
 #include "InstrumentTrack.h"
 #include "Instrument.h"
 
+#include "SamplePlayHandle.h"
+
 namespace lmms::gui
 {
 	ScannerView::ScannerView(Scanner* plugin)
@@ -93,7 +95,7 @@ namespace lmms::gui
 	void ScannerView::process()
 	{
 		this->m_table = new CustomTableWidget(0, 0, this);
-		processGUI(*this->m_table, m_samplesDirectory, [this](QString sample) { this->callback(sample); });
+		processGUI(*this->m_table, m_samplesDirectory, [this](QString sample) { this->callback1(sample); }, [this](QString sample) { this->callback2(sample); });
 
 		delete this->layout();
 
@@ -104,10 +106,28 @@ namespace lmms::gui
 		this->setLayout(new QVBoxLayout(this));
 	}
 
-	void ScannerView::callback(QString sample)
+	void ScannerView::callback1(QString sample)
 	{
-		qDebug() << "ScannerView::callback() called with parameter: " << sample;
-		qDebug() << "I will now add a beat pattern.";
+		QFile wf(sample);
+		if(wf.exists())
+		{
+		    /**
+		     * Safety even when file missing!
+		     */
+		    // QSoundEffect *m_sound = new QSoundEffect;
+		    // m_sound->setSource(QUrl::fromLocalFile(sample));
+		    // m_sound->setVolume(1.0f);
+		    // m_sound->setLoopCount(1); // QSoundEffect::Infinite
+		    // m_sound->play();
+
+		    Engine::audioEngine()->addPlayHandle(new SamplePlayHandle(sample));
+		}
+	}
+
+	void ScannerView::callback2(QString sample)
+	{
+		// qDebug() << "ScannerView::callback() called with parameter: " << sample;
+		// qDebug() << "I will now add a beat pattern.";
 
 		PatternStore* ps = Engine::patternStore();
 

@@ -11,8 +11,16 @@
 #include "PopulateWavTable.h"
 #include "ParseWavFile.h"
 
-// @todo Pass a function pointer as parameter
-void processGUI(CustomTableWidget& table, QString samplesDirectory, std::function<void(QString)> callback)
+// From LMMS
+// #include "SamplePlayHandle.h"
+// #include "Engine.h"
+// namespace lmms { class SamplePlayHandle; }
+
+/**
+ * callback1: Sound Preview Player
+ * callback2: Add sample to track
+ */
+void processGUI(CustomTableWidget& table, QString samplesDirectory, std::function<void(QString)> callback1, std::function<void(QString)> callback2)
 {
     /**
      * DO NOT ALTER the total size: 7 columns
@@ -200,7 +208,7 @@ void processGUI(CustomTableWidget& table, QString samplesDirectory, std::functio
     QObject::connect(
         &table,
         &QTableWidget::cellClicked, // Hand Pointer Icon visualized already
-        [&table, samplesDirectory](
+        [&table, samplesDirectory, callback1](
             int row,
             int column) {
 
@@ -210,19 +218,27 @@ void processGUI(CustomTableWidget& table, QString samplesDirectory, std::functio
             QTableWidgetItem *item = table.item(row, SCANNER_SAMPLES_COLUMN0);
             if (!item) return;
             
-            QString wavfile = QDir::cleanPath(QString("%1/%2").arg(samplesDirectory).arg(item->text()));
-            QFile wf(wavfile);
-            if(wf.exists())
+            if(callback1!=nullptr)
             {
-                /**
-                 * Safety even when file missing!
-                 */
-                QSoundEffect *m_sound = new QSoundEffect;
-                m_sound->setSource(QUrl::fromLocalFile(wavfile));
-                m_sound->setVolume(1.0f);
-                m_sound->setLoopCount(1); // QSoundEffect::Infinite
-                m_sound->play();
+                //QString sample = QDir::cleanPath(QString("%1/%2").arg(samplesDirectory).arg(item->text()));
+                QString sample = QString("%1/%2").arg(samplesDirectory).arg(item->text());
+                callback1(sample);
             }
+
+            // QFile wf(sample);
+            // if(wf.exists())
+            // {
+            //     /**
+            //      * Safety even when file missing!
+            //      */
+            //     QSoundEffect *m_sound = new QSoundEffect;
+            //     m_sound->setSource(QUrl::fromLocalFile(wavfile));
+            //     m_sound->setVolume(1.0f);
+            //     m_sound->setLoopCount(1); // QSoundEffect::Infinite
+            //     m_sound->play();
+
+            //     // Engine::audioEngine()->addPlayHandle(new SamplePlayHandle(wavfile));
+            // }
 
             // @todo On double click, send sample path to LMMS
         }
@@ -236,7 +252,7 @@ void processGUI(CustomTableWidget& table, QString samplesDirectory, std::functio
     QObject::connect(
         &table,
         &QTableWidget::cellDoubleClicked,
-        [&table, samplesDirectory, callback](
+        [&table, samplesDirectory, callback2](
             int row,
             int column) {
 
@@ -246,13 +262,13 @@ void processGUI(CustomTableWidget& table, QString samplesDirectory, std::functio
             QTableWidgetItem *item = table.item(row, SCANNER_SAMPLES_COLUMN0);
             if (!item) return;
 
-            if(callback!=nullptr)
+            if(callback2!=nullptr)
             {
                 QString sample = QString("%1/%2").arg(samplesDirectory).arg(item->text());
-                callback(sample);
+                callback2(sample);
             }
 
-            qDebug() << "Sending Item to LMMS:" << samplesDirectory << item->text();
+            // qDebug() << "Sending Item to LMMS:" << samplesDirectory << item->text();
         }
     );
 }
