@@ -67,14 +67,15 @@ namespace lmms::gui
 			QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
 			if (keyEvent->key() == Qt::Key_F5) {
 				ask();
-				// qDebug() << "F5 key caught by event filter on Scanner!";
+				// qDebug() << "F5 key caught by ScannerView.cpp!";
 				return;// true; // Handled/Intercepted
 			}
 
 			if (keyEvent->key() == Qt::Key_Escape)
 			{
 				// @todo It is NOT closing properly.
-				this->hide();
+				// this->hide();
+				this->close();
 				return;
 			}
 		}
@@ -97,7 +98,6 @@ namespace lmms::gui
 			}
 		}
 	}
-
 
 	void ScannerView::process()
 	{
@@ -136,15 +136,15 @@ namespace lmms::gui
 		}
 	}
 
+	/**
+	 * Add a beat pattern, instantly
+	 */
 	void ScannerView::callback2(QString sample)
 	{
-		// qDebug() << "ScannerView::callback2() called with parameter: " << sample;
-		// qDebug() << "I will now add a beat pattern.";
-
 		PatternStore* ps = Engine::patternStore();
 
 		QString afp = "audiofileprocessor";
-		InstrumentTrack* innerTrack = new InstrumentTrack(ps); // song, ps
+		InstrumentTrack* innerTrack = new InstrumentTrack(ps);
 		innerTrack->loadInstrument(afp);
 		innerTrack->setName(QFileInfo(sample).baseName());
 

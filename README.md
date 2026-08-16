@@ -4,19 +4,22 @@ Work in progress!!
 
 It aggregates visual presentation of the uncompressed *.wav samples graphs.
 The graph shows loudness and duration of the sample in the list.
+Pre-Delays can be determined by looking into mis-aligned sample.
 You can then decide which samples to include in your Pattern Editor track.
 
 <img width="910" height="639" alt="Screenshot" src="https://github.com/user-attachments/assets/eb4888a3-7d91-446d-a3e7-64c8be829562" />
 
 Click on sound graph to play/preview the sound.
 
-Intended for use with LMMS DAW, as a future plugin.
+Intended for:
+    - use with [LMMS](https://github.com/LMMS/lmms/) DAW.
+    - stand alone application with limited feaures
 
 Tip: For better graphs, remove too long or full song .wav audios from your samples folder.
 Best suited for drums, kicks, snares, clicks, shaker, pop, tom like short and one-shot sounds.
 
 - Graph is aligned to left side of the grid.
-- F5 is likely to rescan the last operated folder.
+- F5 to rescan the last operated folder.
 
 There have been multiple files and dirs checks even after scanning is complete.
 This is intentional and works as safety measure during the runtime.
@@ -29,11 +32,11 @@ Each of them handles the audio play in their own manners, using callbacks to com
 
 ## Personalized workflow
 
-- Collect samples in a folder.
+- Collect only necessary samples in your project folder.
 - Pre-edit them.
-- Keep small file size, playtime and total count.
+- Keep small file sizes, playtimes and total count.
 - Under LMMS, open Samples Scanner and browse these samples.
-- Preview the sound by graph and import them in track.
+- Preview the sound by graph, audio play, and double click the row to import them in tracks.
 
 Usage:
 
@@ -69,6 +72,9 @@ ctest
 
 ./scanner_tests
 ./scanner
+
+# Optionally
+sudo make install
 ```
 
 ## Runtime Safety
@@ -117,27 +123,29 @@ DO NOT use root account.
 ## ToDo
 
 - Show durations in ms.
-- Upgrade to Qt6, particularly using Qt6::Multimedia.
 - Inform that CMake for LMMS was modified (added Qt6::Multimedia)
-    - almost unuseful now; using SamplePlayHandle().
+    - ~~almost unuseful now;~~
+    - ~~using SamplePlayHandle().~~
 - Too long file names are trimmed and accessed in alternative manner.
-- Windows: `cmake -S .. . -DCMAKE_PREFIX_PATH="C:\Qt\6.11.1"`
-- From an array, populate column width, name, resizability
+- Qt6 version is non-functional at the time:
+    - Upgrade to Qt6, particularly using Qt6::Multimedia.
+    - Windows: `cmake -S . build -DCMAKE_PREFIX_PATH="C:\Qt\6.11.1"`
+    - Linux Qt6: `cmake -S . build DCMAKE_PREFIX_PATH=/home/USER/Qt/6.11.1/gcc_64`
+- From an array, populate column widths, names, resizabilities.
 - Handle key presses:
+    - ~~`Esc` will hide the window. - Properly close when ESC.~~
     - ~~`F5` will rescan the folder.~~
-    - `Esc` will hide the window.
-    - Properly close when ESC.
-    - Traces remain in LMMS Mode.
-    - Deleting layout is not efficient.
+    - ~~Deleting layout is not efficient.~~
 - ~~Pass samples directory as parameter in command line.~~
 - ~~Set max col width of wav graphs to 300.~~
 - ~~Pass a function pointer to send a sample to LMMS Pattern Editor.~~
-- ~~QSound/Effect to repalce with LMMS Native features (Sample Play Handle)~~ using callbacks.
-- When a tombstone track created for sample, do not add again. May be, track by index?
-    - Sometimes, the sample tracks are not painted.
-    - Add Pattern track manually, once to ease.
+- ~~QSound/Effect to repalce with LMMS Native features (Sample Play Handle)~~
+- ~~using callbacks.~~
+- When a tombstone track created for sample, do not add again. May be, track samples by index?
+    - ~~Sometimes, the sample tracks are not painted.~~
+    - ~~Add Pattern track manually, once to ease. => Using signal: ps->trackUpdated()~~
+- ~~Change plguin's window title from within the code~~
 - Fix threading realated wanrings.
-- Change plguin's window title from within the code
 - Limit the #define'ed constants within application/plugin's namespace.
 - Reduce console logs.
 - Disconnect player immediately if mouse moved away; not waiting to finish the long sample.

@@ -7,7 +7,7 @@ private slots:
 
     void initTestCase() {
         qDebug("Running setup before any tests...");
-        // Initialize shared resources here
+        // Initialize shared resources
     }
 
     void cleanupTestCase() {
