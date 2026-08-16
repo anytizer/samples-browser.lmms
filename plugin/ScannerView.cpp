@@ -26,6 +26,7 @@ namespace lmms::gui
 	, m_samplesDirectory("./samples/")
 	, m_table(new CustomTableWidget(0, 0, this))
 	{
+		this->setWindowTitle("Samples Visualizer - Press F5 key to refresh");
 		this->setAcceptDrops(true);
 		this->setMinimumSize(900, 600);
 		this->setFixedSize(900, 600);
@@ -92,8 +93,6 @@ namespace lmms::gui
 			QStringList selectedDirs = dialog.selectedFiles();
 			if (!selectedDirs.isEmpty()) {
 				m_samplesDirectory = selectedDirs.first();
-				// Do something with dirPath
-
 				process();
 			}
 		}
@@ -123,12 +122,6 @@ namespace lmms::gui
 
 		tl->addWidget(m_table, 1);
 		mainLayout->addLayout(tl);
-
-		// QVBoxLayout* mainLayout = new QVBoxLayout(this);
-		// QVBoxLayout* tl = new QVBoxLayout();
-		// tl->addWidget(m_table, 1);
-		// mainLayout->addLayout(tl);
-		// this->setLayout(new QVBoxLayout(this));
 	}
 
 	void ScannerView::callback1(QString sample)
@@ -145,7 +138,7 @@ namespace lmms::gui
 
 	void ScannerView::callback2(QString sample)
 	{
-		// qDebug() << "ScannerView::callback() called with parameter: " << sample;
+		// qDebug() << "ScannerView::callback2() called with parameter: " << sample;
 		// qDebug() << "I will now add a beat pattern.";
 
 		PatternStore* ps = Engine::patternStore();
@@ -159,5 +152,7 @@ namespace lmms::gui
 		QDomElement element = preset.createElement(afp);
 		element.setAttribute("src", sample);
 		innerTrack->instrument()->restoreState(element);
+
+		ps->trackUpdated();
 	}
 } // namespace

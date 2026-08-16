@@ -119,7 +119,7 @@ DO NOT use root account.
 - Show durations in ms.
 - Upgrade to Qt6, particularly using Qt6::Multimedia.
 - Inform that CMake for LMMS was modified (added Qt6::Multimedia)
-    - almost unuseful now.
+    - almost unuseful now; using SamplePlayHandle().
 - Too long file names are trimmed and accessed in alternative manner.
 - Windows: `cmake -S .. . -DCMAKE_PREFIX_PATH="C:\Qt\6.11.1"`
 - From an array, populate column width, name, resizability
@@ -142,3 +142,4 @@ DO NOT use root account.
 - Reduce console logs.
 - Disconnect player immediately if mouse moved away; not waiting to finish the long sample.
     - eg. when playing longer samples, thread stuck in playing full length.
+- called Track::getClip( 0 ), but Clip 0 doesn't exist
