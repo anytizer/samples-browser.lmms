@@ -25,6 +25,14 @@ Best suited for drums, kicks, snares, clicks, shaker, pop, tom like short and on
 There have been multiple files and dirs checks even after scanning is complete.
 This is intentional and works as safety measure during the runtime.
 
+## Personalized workflow
+
+- Collect samples in a folder.
+- Pre-edit them.
+- Keep small file size, playtime and total count.
+- Under LMMS, open Samples Scanner and browse these samples.
+- Preview the sound by graph and import them in track.
+
 Usage:
 
 ```
