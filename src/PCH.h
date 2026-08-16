@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef SCANNER_PCH_H
-#define SCANNER_PCH_H
+#ifndef SCANNER_SAMPLES_PCH_H
+#define SCANNER_SAMPLES_PCH_H
 
 #include <QTableWidget>
 #include <QTableWidgetItem>
@@ -30,4 +30,4 @@
 #include <QKeyEvent>
 #include <QDebug>
 
-#endif // SCANNER_PCH_H
+#endif // SCANNER_SAMPLES_PCH_H

@@ -2,6 +2,8 @@
 
 #include "PCH.h"
 
+#include "Configurations.h"
+
 class CustomTableWidget : public QTableWidget {
 public:
     CustomTableWidget(int rows, int cols, QWidget *parent = nullptr) 
@@ -15,10 +17,9 @@ protected:
     void mouseMoveEvent(QMouseEvent *event) override {
         // 2. Get the model index under the current mouse position
         QModelIndex index = this->indexAt(event->pos());
-        int targetColumn = 6; // Target column index
 
         // 3. Check conditions and alter cursor shape
-        if (index.isValid() && index.column() == targetColumn) {
+        if (index.isValid() && index.column() == SCANNER_SAMPLES_COLUMN6) {
             this->viewport()->setCursor(Qt::PointingHandCursor);
         } else {
             this->viewport()->setCursor(Qt::ArrowCursor);

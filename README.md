@@ -8,13 +8,13 @@ Aggregates visual presentation of the uncompressed *.wav samples graphs.
 
 Click on sound graph to play/preview the sound.
 
-Intended for use with LMMS | Plugin as Drum sample analysis.
+Intended for use with LMMS DAW.
 
 Tip: For better graphs, remove too long or full song .wav audios from your samples folder.
-Best suited for drums, kicks, snares, clicks, shaker, pop, tom like short sounds.
+Best suited for drums, kicks, snares, clicks, shaker, pop, tom like short and one-shot sounds.
 
-Graph is aligned to left side of the grid.
-F5 is likely to rescan the last operated folder.
+- Graph is aligned to left side of the grid.
+- F5 is likely to rescan the last operated folder.
 
 There have been multiple files and dirs checks even after scanning is complete.
 This is intentional and works as safety measure during the runtime.
@@ -76,3 +76,5 @@ You MUST own the folder; or have read/write permissions.
 - ~~Pass samples directory as parameter in command line.~~
 - Upgrade to Qt6, particularly using Multimedia.
 - Show durations in ms.
+- Too long file names are trimmed and accessed in alternative manner.
+- Set max col width of wav graphs to 300.

@@ -11,7 +11,7 @@
 void processGUI(CustomTableWidget& table, QString samplesPath)
 {
     /**
-     * DO NOT ALTER the total size: 7
+     * DO NOT ALTER the total size: 7 columns
      */
     QList<QString> labels = {
         "Sample File Name",
@@ -84,13 +84,13 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
     // -----------------------------------------------------
 
     // Filename.
-    table.setColumnWidth(SCANNER_SAMPLES_COLUMN0, 250);
+    table.setColumnWidth(SCANNER_SAMPLES_COLUMN0, 300);
 
     // Playtime.
-    // table.setColumnWidth(5, 150);
+    // table.setColumnWidth(SCANNER_SAMPLES_COLUMN6, 250);
 
     QHeaderView *hh = table.horizontalHeader();
-    hh->setMinimumSectionSize(50);
+    hh->setMinimumSectionSize(100);
     hh->setSectionResizeMode(SCANNER_SAMPLES_COLUMN0, QHeaderView::Interactive);
     hh->setSectionResizeMode(SCANNER_SAMPLES_COLUMN1, QHeaderView::ResizeToContents);
     hh->setSectionResizeMode(SCANNER_SAMPLES_COLUMN2, QHeaderView::ResizeToContents);
@@ -176,7 +176,7 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
     populateWavTable(table, wavList, commonDurationSeconds);
 
     // -----------------------------------------------------
-    // Double-click handler
+    // Single-click handler on wav graph
     // -----------------------------------------------------
 
     QObject::connect(
@@ -210,6 +210,10 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
         }
     );
 
+
+    // -----------------------------------------------------
+    // Double-click handler on entire row
+    // -----------------------------------------------------
 
     QObject::connect(
         &table,

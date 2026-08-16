@@ -3,11 +3,6 @@
 #include "PCH.h"
 
 #include "WavInfo.h"
-#include "WaveformDelegate.h"
-
-#include "Configurations.h"
-
-
 
 // ---------------------------------------------------------
 // Create waveform image using a common time scale.
@@ -30,10 +25,7 @@ QImage createWaveformImage(
     width = qMin(width, 200);
     height = qMax(height, 50);
 
-    QImage image(
-        width,
-        height,
-        QImage::Format_ARGB32);
+    QImage image(width, height, QImage::Format_ARGB32);
 
     // Transparent background.
     image.fill(Qt::transparent);
@@ -43,9 +35,7 @@ QImage createWaveformImage(
 
     QPainter painter(&image);
 
-    painter.setRenderHint(
-        QPainter::Antialiasing,
-        false);
+    painter.setRenderHint(QPainter::Antialiasing, false);
 
     // -----------------------------------------------------
     // 32 time divisions.
@@ -65,7 +55,7 @@ QImage createWaveformImage(
             1));
 
     for (int division = 8;
-         division < divisions;
+         division <= divisions; // include last vertical line as well
          division += 8) {
 
         int x =
@@ -74,11 +64,7 @@ QImage createWaveformImage(
                  divisions) *
                 (width - 1));
 
-        painter.drawLine(
-            x,
-            0,
-            x,
-            height - 1);
+        painter.drawLine(x, 0, x, height - 1);
     }
 
     // -----------------------------------------------------

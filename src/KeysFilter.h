@@ -4,11 +4,11 @@
 
 class KeysFilter : public QObject {
 private:
-    QTableWidget* m_table;
+    CustomTableWidget* m_table;
     //QWidget* m_window;
 
 public:
-    explicit KeysFilter(QTableWidget *table) 
+    explicit KeysFilter(CustomTableWidget *table) 
         : QObject(table),
         m_table(table)//,
         //m_window(window)
