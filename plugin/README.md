@@ -1,14 +1,15 @@
 # Scanner
 
-    - [ ] scan .wav oneshots
-    - [ ] adaptive graphs
-    - [ ] view audio graphs
-    - [ ] skip large files
-    - [ ] prefer short samples
+    - [x] scan .wav one-shots
+    - [x] adaptive graphs
+    - [x] view audio graphs
+    - [x] skip large files
+    - [x] prefer short samples
     - [ ] save cpu
-    - [ ] import selected sample
-    - [ ] refresh/rescan files
+    - [x] import selected sample (creates a track in Pattern Editor)
+    - [x] refresh/rescan files
     - [ ] keyboard shortcuts
+    - [x] Standalone as well as LMMS Integrated
 
 
 # Except: main.cpp
@@ -29,4 +30,8 @@ ln -s ../../src/WaveformDelegate.h WaveformDelegate.h
 ln -s ../../src/WavInfo.h WavInfo.h
 ```
 
-Do NOT edit any files under logic/. This is the copy of standalone application!
+Do NOT edit any files under logic/.
+This is just a copy of standalone application!
+
+- Create a symlink of this folder as "Scanner" under LMMS/plugins/.
+- Enable Scanner Plugin to compile.

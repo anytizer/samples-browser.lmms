@@ -1,4 +1,5 @@
 #include <QLayout>
+#include <QDomElement>
 
 #include "Scanner.h"
 #include "ScannerView.h"
@@ -7,6 +8,13 @@
 #include "logic/CustomTableWidget.h"
 #include "logic/ProcessGUI.h"
 #include "logic/KeysFilter.h"
+
+#include "Song.h"
+#include "Track.h"
+#include "SampleTrack.h"
+#include "PatternStore.h"
+#include "InstrumentTrack.h"
+#include "Instrument.h"
 
 namespace lmms::gui
 {
@@ -100,5 +108,17 @@ namespace lmms::gui
 	{
 		qDebug() << "ScannerView::callback() called with parameter: " << sample;
 		qDebug() << "I will now add a beat pattern.";
+
+		PatternStore* ps = Engine::patternStore();
+
+		QString afp = "audiofileprocessor";
+		InstrumentTrack* innerTrack = new InstrumentTrack(ps); // song, ps
+		innerTrack->loadInstrument(afp);
+		innerTrack->setName(QFileInfo(sample).baseName());
+
+		QDomDocument preset;
+		QDomElement element = preset.createElement(afp);
+		element.setAttribute("src", sample);
+		innerTrack->instrument()->restoreState(element);
 	}
 } // namespace

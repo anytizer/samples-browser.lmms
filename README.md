@@ -79,6 +79,10 @@ scanner wavs
 You MUST own that "folder"; or have read/write permissions.
 DO NOT use root account.
 
+# For LMMS
+
+@see [Plugin's ReadMe](plugin/README.md)
+
 ## ToDo
 
 - `F5` will rescan the folder.
@@ -92,3 +96,4 @@ DO NOT use root account.
 - ~~Set max col width of wav graphs to 300.~~
 - Pass a function pointer to send a sample to LMMS Pattern Editor.
 - QSound/Effect to repalce with LMMS Native features.
+- When a tombstone track created for sample, do not add again. Track by index?
