@@ -2,6 +2,7 @@
 
 #include "PCH.h"
 
+#include "Configurations.h"
 #include "WavInfo.h"
 
 // ---------------------------------------------------------
@@ -18,12 +19,11 @@
 // ---------------------------------------------------------
 QImage createWaveformImage(
     const WavInfo &wav,
-    double commonDurationSeconds,
-    int width = 200,
-    int height = 100)
+    double commonDurationSeconds
+)
 {
-    width = qMin(width, 200);
-    height = qMax(height, 50);
+    int width = SCANNER_SAMPLES_WAVGRAPH_WIDTH;
+    int height = SCANNER_SAMPLES_WAVGRAPH_HEIGHT;
 
     QImage image(width, height, QImage::Format_ARGB32);
 

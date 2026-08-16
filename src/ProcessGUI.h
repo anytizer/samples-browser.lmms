@@ -84,10 +84,10 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
     // -----------------------------------------------------
 
     // Filename.
-    table.setColumnWidth(SCANNER_SAMPLES_COLUMN0, 300);
+    table.setColumnWidth(SCANNER_SAMPLES_COLUMN0, 200);
 
     // Playtime.
-    // table.setColumnWidth(SCANNER_SAMPLES_COLUMN6, 250);
+    // table.setColumnWidth(SCANNER_SAMPLES_COLUMN6, SCANNER_SAMPLES_WAVGRAPH_WIDTH);
 
     QHeaderView *hh = table.horizontalHeader();
     hh->setMinimumSectionSize(100);
@@ -101,11 +101,21 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
     // WAV Graph uses remaining table width.
     hh->setSectionResizeMode(SCANNER_SAMPLES_COLUMN6, QHeaderView::Stretch);
 
-    // -----------------------------------------------------
     // Waveform delegate
-    // -----------------------------------------------------
-
     table.setItemDelegateForColumn(SCANNER_SAMPLES_COLUMN6, new WaveformDelegate(&table));
+
+    /**
+     * Apply max width on SCANNER_SAMPLES_COLUMN0, aka File Name
+     */
+    QObject::connect(hh, &QHeaderView::sectionResized, hh, [hh](int logicalIndex, int oldSize, int newSize) {
+        const int targetColumn = SCANNER_SAMPLES_COLUMN0;
+        const int maxWidth = 300;   
+        if (logicalIndex == targetColumn && newSize > maxWidth) {
+            // Block signals to prevent infinite recursion during re-assignment
+            QSignalBlocker blocker(hh);
+            hh->resizeSection(targetColumn, maxWidth);
+        }
+    });
 
     // -----------------------------------------------------
     // Scan WAV files at runtime

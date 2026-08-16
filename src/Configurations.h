@@ -31,6 +31,13 @@
 #define SCANNER_SAMPLES_MAX_PLAYTIME 10.0f
 
 /**
+ * Width and Height of the wav graph image
+ * That appears in the 7th column
+ */
+#define SCANNER_SAMPLES_WAVGRAPH_WIDTH 300
+#define SCANNER_SAMPLES_WAVGRAPH_HEIGHT 50
+
+/**
  * Appearance of the columns in the table
  */
 #define SCANNER_SAMPLES_COLUMN0 0 // file name
