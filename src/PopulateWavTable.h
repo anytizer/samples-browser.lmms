@@ -18,27 +18,27 @@ void populateWavTable(QTableWidget &table, const QList<WavInfo> &wavList, double
         const WavInfo &wav = wavList[i];
 
         // File Name
-        table.setItem(i, 0, new QTableWidgetItem(wav.fileName));
+        table.setItem(i, SCANNER_SAMPLES_COLUMN0, new QTableWidgetItem(wav.fileName));
 
         // File Size
-        table.setItem(i, 1, new QTableWidgetItem(formatFileSize(wav.fileSize)));
+        table.setItem(i, SCANNER_SAMPLES_COLUMN1, new QTableWidgetItem(formatFileSize(wav.fileSize)));
 
         // Sample Rate
-        table.setItem(i, 2, new QTableWidgetItem(QString::number(wav.sampleRate)));
+        table.setItem(i, SCANNER_SAMPLES_COLUMN2, new QTableWidgetItem(QString::number(wav.sampleRate)));
 
         // Channels
-        table.setItem(i, 3, new QTableWidgetItem(QString::number(wav.channels)));
+        table.setItem(i, SCANNER_SAMPLES_COLUMN3, new QTableWidgetItem(QString::number(wav.channels)));
 
         // Bits/Sample
-        table.setItem(i, 4, new QTableWidgetItem(QString::number(wav.bitsPerSample)));
+        table.setItem(i, SCANNER_SAMPLES_COLUMN4, new QTableWidgetItem(QString::number(wav.bitsPerSample)));
 
         // Playtime
-        table.setItem(i, 5, new QTableWidgetItem(QString::number(wav.durationSeconds, 'f', 2)));
+        table.setItem(i, SCANNER_SAMPLES_COLUMN5, new QTableWidgetItem(QString::number(wav.durationSeconds, 'f', 2)));
 
         // WAV Graph
-        QImage waveform = createWaveformImage(wav, commonDurationSeconds, 200, 50);
+        QImage waveform = createWaveformImage(wav, commonDurationSeconds, 300, 50);
         QTableWidgetItem *graphItem = new QTableWidgetItem();
         graphItem->setData(Qt::DecorationRole, QPixmap::fromImage(waveform));
-        table.setItem(i, 6, graphItem);
+        table.setItem(i, SCANNER_SAMPLES_COLUMN6, graphItem);
     }
 }

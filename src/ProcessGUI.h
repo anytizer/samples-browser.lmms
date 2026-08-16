@@ -10,11 +10,10 @@
 
 void processGUI(CustomTableWidget& table, QString samplesPath)
 {
-    table.clearContents();
-    table.setColumnCount(7); // 0 - 6
-    table.setRowCount(0); // we will add rows later
-
-    table.setHorizontalHeaderLabels({
+    /**
+     * DO NOT ALTER the total size: 7
+     */
+    QList<QString> labels = {
         "Sample File Name",
         "File Size",
         "Sample Rate",
@@ -22,7 +21,13 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
         "Bits/Sample",
         "Playtime (s)",
         "WAV Graph"
-    });
+    };
+
+    table.clearContents();
+    table.setColumnCount(labels.size()); // 0 - 6 = 7
+    table.setRowCount(0); // we will add rows later
+
+    table.setHorizontalHeaderLabels(labels);
 
     // Read-only.
     table.setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -32,9 +37,6 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
 
     // Only one row at a time.
     table.setSelectionMode(QAbstractItemView::SingleSelection);
-
-    // Remove numeric row header.
-    table.verticalHeader()->setVisible(false);
 
     // Fill parent.
     table.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -71,42 +73,45 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
     // -----------------------------------------------------
     // Fixed row height: 50 pixels
     // -----------------------------------------------------
-
-    table.verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
-    table.verticalHeader()->setDefaultSectionSize(50);
+    QHeaderView *vh = table.verticalHeader();
+    vh->setVisible(false); // Remove numeric row header.
+    vh->setMinimumWidth(100);
+    vh->setSectionResizeMode(QHeaderView::Fixed);
+    vh->setDefaultSectionSize(50);
 
     // -----------------------------------------------------
     // Column sizing
     // -----------------------------------------------------
 
     // Filename.
-    table.setColumnWidth(0, 250);
+    table.setColumnWidth(SCANNER_SAMPLES_COLUMN0, 250);
 
     // Playtime.
     // table.setColumnWidth(5, 150);
 
-    table.horizontalHeader()->setSectionResizeMode(0, QHeaderView::Interactive);
-    table.horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
-    table.horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
-    table.horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
-    table.horizontalHeader()->setSectionResizeMode(4, QHeaderView::ResizeToContents);
-    table.horizontalHeader()->setSectionResizeMode(5, QHeaderView::ResizeToContents);
+    QHeaderView *hh = table.horizontalHeader();
+    hh->setMinimumSectionSize(50);
+    hh->setSectionResizeMode(SCANNER_SAMPLES_COLUMN0, QHeaderView::Interactive);
+    hh->setSectionResizeMode(SCANNER_SAMPLES_COLUMN1, QHeaderView::ResizeToContents);
+    hh->setSectionResizeMode(SCANNER_SAMPLES_COLUMN2, QHeaderView::ResizeToContents);
+    hh->setSectionResizeMode(SCANNER_SAMPLES_COLUMN3, QHeaderView::ResizeToContents);
+    hh->setSectionResizeMode(SCANNER_SAMPLES_COLUMN4, QHeaderView::ResizeToContents);
+    hh->setSectionResizeMode(SCANNER_SAMPLES_COLUMN5, QHeaderView::ResizeToContents);
 
     // WAV Graph uses remaining table width.
-    table.horizontalHeader()->setSectionResizeMode(6, QHeaderView::Stretch);
+    hh->setSectionResizeMode(SCANNER_SAMPLES_COLUMN6, QHeaderView::Stretch);
 
     // -----------------------------------------------------
     // Waveform delegate
     // -----------------------------------------------------
 
-    table.setItemDelegateForColumn(6, new WaveformDelegate(&table));
+    table.setItemDelegateForColumn(SCANNER_SAMPLES_COLUMN6, new WaveformDelegate(&table));
 
     // -----------------------------------------------------
     // Scan WAV files at runtime
     // -----------------------------------------------------
 
     QDir samplesDir(samplesPath);
-
     QStringList filePaths =
         samplesDir.entryList(
             QStringList()
@@ -120,29 +125,32 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
 
     int counter = 0;
     for (const QString &fileName : filePaths) {
-        
-        QFile sample(fileName);
-
-        // do not process large samples
-        if(sample.size()>=SCANNER_SAMPLES_FILESIZE_LIMIT) continue;
-
         QString fullPath = samplesDir.absoluteFilePath(fileName);
-
+        
+        QFileInfo sample(fullPath);
+        if(sample.size()>=SCANNER_SAMPLES_FILESIZE_LIMIT) continue;
+ 
         WavInfo info = parseWavFile(fullPath);
 
         if (info.sampleRate > 0 &&
             info.channels > 0 &&
-            // info.channels <= 2 &&
             info.bitsPerSample > 0 &&
             info.dataSize > 0 &&
-            // info.fileSize <= 102400 &&
             info.durationSeconds <= SCANNER_SAMPLES_MAX_PLAYTIME
-        ) // 100kb
+        )
         {
             wavList.append(info);
         }
 
         if(++counter > SCANNER_SAMPLES_COUNT_LIMIT) break;
+
+        /**
+         * Total checks applied so far:
+         * - file size limits - 100kb
+         * - play time - 10s
+         * - top/max count - 50
+         * - .wav format files only
+         */
     }
 
 
@@ -150,7 +158,7 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
     // Determine common waveform duration.
     //
     // Minimum = 1 second.
-    // Otherwise = longest sample.
+    // Otherwise = longest sample, ie. 10 seconds
     // -----------------------------------------------------
 
     double longestDuration = 0.0;
@@ -173,14 +181,15 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
 
     QObject::connect(
         &table,
-        &QTableWidget::cellClicked, // cellDoubleClicked | cellClicked
+        &QTableWidget::cellClicked, // Hand Pointer Icon visualized already
         [&table, samplesPath](
             int row,
             int column) {
 
-            if(column!=6) return; // wav graph
+            if(column!=SCANNER_SAMPLES_COLUMN6) return; // wav graph
 
-            QTableWidgetItem *item = table.item(row, 0);
+            // row, 0 | first item, full wav filename
+            QTableWidgetItem *item = table.item(row, SCANNER_SAMPLES_COLUMN0);
             if (!item) return;
             
             QString wavfile = QDir::cleanPath(QString("%1/%2").arg(samplesPath).arg(item->text()));
@@ -188,7 +197,7 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
             if(wf.exists())
             {
                 /**
-                 * Safe even when file missing!
+                 * Safety even when file missing!
                  */
                 QSoundEffect *m_sound = new QSoundEffect;
                 m_sound->setSource(QUrl::fromLocalFile(wavfile));
@@ -198,6 +207,24 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
             }
 
             // @todo On double click, send sample path to LMMS
+        }
+    );
+
+
+    QObject::connect(
+        &table,
+        &QTableWidget::cellDoubleClicked,
+        [&table, samplesPath](
+            int row,
+            int column) {
+
+            // @todo: Sinlge Click is also entertained together.
+
+            // row, 0 | first item, full wav filename
+            QTableWidgetItem *item = table.item(row, SCANNER_SAMPLES_COLUMN0);
+            if (!item) return;
+
+            qDebug() << "Sending Item to LMMS:" << samplesPath << item->text();
         }
     );
 }

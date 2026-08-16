@@ -25,10 +25,7 @@ public:
         QVariant value = index.data(Qt::DecorationRole);
 
         if (!value.isValid()) {
-            QStyledItemDelegate::paint(
-                painter,
-                option,
-                index);
+            QStyledItemDelegate::paint(painter, option, index);
             return;
         }
 

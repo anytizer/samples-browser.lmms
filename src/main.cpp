@@ -47,19 +47,12 @@ int main(int argc, char *argv[])
     
     QVBoxLayout layout(&window);
     
-    //CustomTableWidget *table = new CustomTableWidget(0, 7, this);
-    CustomTableWidget table(0, 7, &window);
-     // Create our custom table with 4 rows and 7 columns
-    
-     // QTableWidget table;
-    
-    // populates max top 50 samples in table | no trailing /
+    CustomTableWidget table(0, 0, &window); // @see SCANNER_SAMPLES_COLUMNX
     processGUI(table, samplesDirectory);
     layout.addWidget(&table, 1);
 
     KeysFilter *filter = new KeysFilter(&table);
-    window.installEventFilter(filter);
-    
+    window.installEventFilter(filter);    
     // QKeyEvent fakeF5Press(
     //     QEvent::KeyPress,  // The type of event
     //     Qt::Key_F5,        // The key code for F5

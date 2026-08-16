@@ -61,11 +61,13 @@ ctest
 ## If samples are not in .wav format, convert them!
 
 ```
-for i in *.ogg; do ffmpeg -i "$i" "${i%.ogg}.wav"; done
+for i in *.ogg; do ffmpeg -loglevel quiet -i "$i" "${i%.ogg}.wav"; done
 
 # or,
-for i in *.flac; do ffmpeg -i "$i" "${i%.flac}.wav"; done
+for i in *.flac; do ffmpeg -loglevel quiet -i "$i" "${i%.flac}.wav"; done
 ```
+
+You MUST own the folder; or have read/write permissions.
 
 ## ToDo
 
