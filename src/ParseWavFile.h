@@ -26,8 +26,7 @@ WavInfo parseWavFile(const QString &filePath)
     char chunk[4];
 
     // RIFF
-    if (file.read(chunk, 4) != 4 ||
-        QByteArray(chunk, 4) != "RIFF") {
+    if (file.read(chunk, 4) != 4 || QByteArray(chunk, 4) != "RIFF") {
         return info;
     }
 
@@ -36,8 +35,7 @@ WavInfo parseWavFile(const QString &filePath)
     Q_UNUSED(chunkSize);
 
     // WAVE
-    if (file.read(chunk, 4) != 4 ||
-        QByteArray(chunk, 4) != "WAVE") {
+    if (file.read(chunk, 4) != 4 || QByteArray(chunk, 4) != "WAVE") {
         return info;
     }
 

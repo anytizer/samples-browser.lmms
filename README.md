@@ -120,7 +120,7 @@ Optionally pass parameter: `-c:a pcm_f32le`.
 You MUST own that "folder"; or have read/write permissions.
 DO NOT use root account.
 
-# For LMMS
+## For LMMS Plugin
 
 @see [Plugin's ReadMe](plugin/README.md)
 
@@ -135,8 +135,9 @@ DO NOT use root account.
     - Upgrade to Qt6, particularly using Qt6::Multimedia.
     - Windows: `cmake -S . build -DCMAKE_PREFIX_PATH="C:\Qt\6.11.1"`
     - Linux Qt6: `cmake -S . build DCMAKE_PREFIX_PATH=/home/USER/Qt/6.11.1/gcc_64`
+    - in CMakeLists.txt files
 - From an array, populate column widths, names, resizabilities.
-- Handle key presses:
+- ~~Handle key presses:~~
     - ~~`Esc` will hide the window. - Properly close when ESC.~~
     - ~~`F5` will rescan the folder.~~
     - ~~Deleting layout is not efficient.~~
@@ -145,13 +146,14 @@ DO NOT use root account.
 - ~~Pass a function pointer to send a sample to LMMS Pattern Editor.~~
 - ~~QSound/Effect to repalce with LMMS Native features (Sample Play Handle)~~
 - ~~using callbacks.~~
-- When a tombstone track created for sample, do not add again. May be, track samples by index?
+- When a tombstone track created for sample, do not add again. (May be, track samples by index?)
     - ~~Sometimes, the sample tracks are not painted.~~
     - ~~Add Pattern track manually, once to ease. => Using signal: ps->trackUpdated()~~
 - ~~Change plguin's window title from within the code~~
+- ~~Reduce console logs.~~
 - Fix threading realated wanrings.
 - Limit the #define'ed constants within application/plugin's namespace.
-- Reduce console logs.
 - Disconnect player immediately if mouse moved away; not waiting to finish the long sample.
     - eg. when playing longer samples, thread stuck in playing full length.
 - called Track::getClip( 0 ), but Clip 0 doesn't exist
+- Try to make plugin without logic/ folder and by accessing files in ../src/ folder directly.

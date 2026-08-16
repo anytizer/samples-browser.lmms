@@ -24,7 +24,7 @@ namespace lmms
 
             gui::PluginView* instantiateView(QWidget*) override
             {
-                auto plugin = new gui::ScannerView(this);
+                gui::ScannerView* plugin = new gui::ScannerView(this);
                 return plugin;
             }
     };

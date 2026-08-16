@@ -18,11 +18,11 @@ bool isDir(QString directory)
 
 void help()
 {
-    qDebug("Help:\n\n    scanner /path/to/wav/samples/\n");
+    qDebug("\nHelp:\n\n    scanner /path/to/wav/samples/\n");
 }
 
 /**
- * Sould preview callback
+ * Sound preview callback
  */
 void callback1(QString sample)
 {
@@ -41,11 +41,11 @@ void callback1(QString sample)
 }
 
 /**
- * Track creation callback
+ * Add-to-Track callback
  */
 void callback2(QString sample)
 {
-    // add track in LMMS
+    // add track in Pattern Editor of LMMS
 }
 
 int main(int argc, char *argv[])

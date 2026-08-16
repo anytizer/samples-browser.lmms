@@ -20,16 +20,14 @@ protected:
   
             if (keyEvent->key() == Qt::Key_F5) {
                 // @todo treat the command line parameter first, for directory
-                //processGUI(&m_table, SCANNER_SAMPLES_DIRECTORY);
-
-                qDebug() << "The F5 key was pressed.";
+                qDebug() << "The F5 key was pressed. (KeysFilter.h)";
                 return true; 
             }
 
             if (keyEvent->key() == Qt::Key_Escape) {
                 // in main window, exit.
-                // if called under LMMS as Plugin, hide
-                qDebug() << "The ESC key was pressed.";
+                // @todo if called under LMMS as Plugin, hide subwindow
+                qDebug() << "The ESC key was pressed. (KeysFilter.h)";
                 return true;
             }
         }

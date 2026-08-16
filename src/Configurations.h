@@ -2,15 +2,18 @@
 
 /**
  * Which directory to scan for?
- * ./samples
- * ../samples
+ * ./samples/
+ * ../samples/
  * /PATH/samples?
- * from CLI Parameter?
+ *
+ * Passed from CLI Parameter?
  * 
  * This value is ignored later, if an argc/argv parameter was passed.
  * Failback default to here.
+ * 
+ * Default value: ../samples
  */
-#define SCANNER_SAMPLES_DIRECTORY "../samples"
+#define SCANNER_SAMPLES_DIRECTORY "./"
 
 /**
  * Set according to your computer's capabilities

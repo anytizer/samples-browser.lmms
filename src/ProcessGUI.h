@@ -17,8 +17,8 @@
 // namespace lmms { class SamplePlayHandle; }
 
 /**
- * callback1: Sound Preview Player
- * callback2: Add sample to track
+ * callback1: Sound preview
+ * callback2: Add sample to pattern track
  */
 void processGUI(CustomTableWidget& table, QString samplesDirectory, std::function<void(QString)> callback1, std::function<void(QString)> callback2)
 {
@@ -224,21 +224,6 @@ void processGUI(CustomTableWidget& table, QString samplesDirectory, std::functio
                 QString sample = QString("%1/%2").arg(samplesDirectory).arg(item->text());
                 callback1(sample);
             }
-
-            // QFile wf(sample);
-            // if(wf.exists())
-            // {
-            //     /**
-            //      * Safety even when file missing!
-            //      */
-            //     QSoundEffect *m_sound = new QSoundEffect;
-            //     m_sound->setSource(QUrl::fromLocalFile(wavfile));
-            //     m_sound->setVolume(1.0f);
-            //     m_sound->setLoopCount(1); // QSoundEffect::Infinite
-            //     m_sound->play();
-
-            //     // Engine::audioEngine()->addPlayHandle(new SamplePlayHandle(wavfile));
-            // }
 
             // @todo On double click, send sample path to LMMS
         }

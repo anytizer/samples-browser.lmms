@@ -1,4 +1,3 @@
 /build/
 /samples/
-/**/out/
-
+/plugin/logic

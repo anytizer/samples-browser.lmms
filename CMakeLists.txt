@@ -27,6 +27,8 @@ add_executable(scanner
     src/PopulateWavTable.h
     src/ProcessGUI.h
     src/KeysFilter.h
+    
+    # @todo main.cpp in parent path
     src/main.cpp
 )
 
