@@ -9,6 +9,7 @@
 #include <QDataStream>
 #include <QFileInfo>
 #include <QDir>
+#include <QFileDialog>
 #include <QVBoxLayout>
 #include <QWidget>
 #include <QList>

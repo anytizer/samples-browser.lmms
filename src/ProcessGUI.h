@@ -131,6 +131,8 @@ void processGUI(CustomTableWidget& table, QString samplesDirectory)
             QDir::Readable,
             QDir::Name);
 
+    qDebug() << filePaths;
+    
     QList<WavInfo> wavList;
 
     int counter = 0;
