@@ -4,6 +4,17 @@ BUILD_PLUGIN(
     scanner
         ScannerView.cpp
         Scanner.cpp
+        logic/Configurations.h
+        logic/PCH.h
+        logic/CustomTableWidget.h
+        logic/KeysFilter.h
+        logic/ParseWavFile.h
+        logic/PopulateWavTable.h
+        logic/WaveformDelegate.h
+        logic/CreateWaveformImage.h
+        logic/FormatFileSize.h
+        logic/ProcessGUI.h
+        logic/WavInfo.h
     MOCFILES
         ScannerView.h
         Scanner.h

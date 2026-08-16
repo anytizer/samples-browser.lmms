@@ -8,7 +8,7 @@
 #include "PopulateWavTable.h"
 #include "ParseWavFile.h"
 
-void processGUI(CustomTableWidget& table, QString samplesPath)
+void processGUI(CustomTableWidget& table, QString samplesDirectory)
 {
     /**
      * DO NOT ALTER the total size: 7 columns
@@ -121,7 +121,7 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
     // Scan WAV files at runtime
     // -----------------------------------------------------
 
-    QDir samplesDir(samplesPath);
+    QDir samplesDir(samplesDirectory);
     QStringList filePaths =
         samplesDir.entryList(
             QStringList()
@@ -163,6 +163,8 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
          */
     }
 
+    
+
 
     // -----------------------------------------------------
     // Determine common waveform duration.
@@ -192,7 +194,7 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
     QObject::connect(
         &table,
         &QTableWidget::cellClicked, // Hand Pointer Icon visualized already
-        [&table, samplesPath](
+        [&table, samplesDirectory](
             int row,
             int column) {
 
@@ -202,7 +204,7 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
             QTableWidgetItem *item = table.item(row, SCANNER_SAMPLES_COLUMN0);
             if (!item) return;
             
-            QString wavfile = QDir::cleanPath(QString("%1/%2").arg(samplesPath).arg(item->text()));
+            QString wavfile = QDir::cleanPath(QString("%1/%2").arg(samplesDirectory).arg(item->text()));
             QFile wf(wavfile);
             if(wf.exists())
             {
@@ -228,7 +230,7 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
     QObject::connect(
         &table,
         &QTableWidget::cellDoubleClicked,
-        [&table, samplesPath](
+        [&table, samplesDirectory](
             int row,
             int column) {
 
@@ -238,7 +240,7 @@ void processGUI(CustomTableWidget& table, QString samplesPath)
             QTableWidgetItem *item = table.item(row, SCANNER_SAMPLES_COLUMN0);
             if (!item) return;
 
-            qDebug() << "Sending Item to LMMS:" << samplesPath << item->text();
+            qDebug() << "Sending Item to LMMS:" << samplesDirectory << item->text();
         }
     );
 }

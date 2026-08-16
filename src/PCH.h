@@ -24,7 +24,7 @@
 #include <QColor>
 #include <QSizePolicy>
 #include <QtMath>
-#include <QSound>
+//#include <QSound>
 #include <QSoundEffect>
 #include <QUrl>
 #include <QKeyEvent>

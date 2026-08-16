@@ -35,6 +35,9 @@ eg:
 
 ```
 sudo apt install qtmultimedia5-dev
+
+# For Qt6
+sudo apt install libqt6multimedia6 qt6-multimedia-dev
 ```
 
 ## Building with CMake

@@ -3,23 +3,40 @@
 #include "Scanner.h"
 #include "ScannerView.h"
 
+#include "logic/PCH.h"
+#include "logic/CustomTableWidget.h"
+#include "logic/ProcessGUI.h"
+#include "logic/KeysFilter.h"
+
 namespace lmms::gui
 {
 	ScannerView::ScannerView(Scanner* plugin)
 	: ToolPluginView(plugin)
 	, m_plugin(plugin)
 	{
-		QVBoxLayout* mainLayout = new QVBoxLayout(this);
+		QString samplesDirectory  = "~/Desktop/samples/drums";
 		
-		QWidget *table = new QWidget();
-		table->setFixedSize(QSize(400, 300));
+		
+		
+		
+		
+		this->setAcceptDrops(true);
+		this->setMinimumSize(900, 600);
+		
+		CustomTableWidget *table = new CustomTableWidget(0, 0, this);
+		processGUI(*table, samplesDirectory);
 
-		mainLayout->addWidget(table);
-		this->setLayout(mainLayout);
+		KeysFilter *filter = new KeysFilter(table);
+		this->installEventFilter(filter); 
 
+		QVBoxLayout* mainLayout = new QVBoxLayout(this);
+		QVBoxLayout* tl = new QVBoxLayout(); // Parent can be set via layout nesting or constructor
+		tl->addWidget(table, 1);
+		mainLayout->addLayout(tl);
 
-
-
+		
+		
+		
 		QWidget* pw = parentWidget();
 		if (pw!=nullptr)
 		{
