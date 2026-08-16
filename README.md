@@ -1,8 +1,12 @@
-# Samples Scanner
+# Samples Scanner and Importer
 
 Work in progress!!
 
-Aggregates visual presentation of the uncompressed *.wav samples graphs.
+This piece of software has 2 operating mode:
+- Standalone Qt5 application.
+- Qt6 based plugin for LMMS
+
+It aggregates visual presentation of the uncompressed *.wav samples graphs. You can then decide which samples to include in your Pattern Editor track.
 
 <img width="910" height="639" alt="Screenshot" src="https://github.com/user-attachments/assets/eb4888a3-7d91-446d-a3e7-64c8be829562" />
 
@@ -96,4 +100,4 @@ DO NOT use root account.
 - ~~Set max col width of wav graphs to 300.~~
 - Pass a function pointer to send a sample to LMMS Pattern Editor.
 - QSound/Effect to repalce with LMMS Native features.
-- When a tombstone track created for sample, do not add again. Track by index?
+- When a tombstone track created for sample, do not add again. May be, track by index?
