@@ -1,3 +1,6 @@
+# This CMake file is for compiling as standalone application.
+# To compile as LMMS Plugin, see plguin/ folder.
+
 cmake_minimum_required(VERSION 3.16)
 
 project(scanner VERSION 1.0 LANGUAGES CXX)

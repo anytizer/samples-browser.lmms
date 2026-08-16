@@ -13,15 +13,17 @@ Click on sound graph to play/preview the sound.
 
 Intended for:
     - use with [LMMS](https://github.com/LMMS/lmms/) DAW.
-    - stand alone application with limited feaures
+    - stand alone application with limited feaures.
 
 Tip: For better graphs, remove too long or full song .wav audios from your samples folder.
 Best suited for drums, kicks, snares, clicks, shaker, pop, tom like short and one-shot sounds.
+Graph is awesome for samples less than 10 seconds, preferably, 2 seconds.
 
 - Graph is aligned to left side of the grid.
-- F5 to rescan the last operated folder.
+- `F5` key to rescan the last operated folder.
+- `Esc` key to close the window.
 
-There have been multiple files and dirs checks even after scanning is complete.
+There have been multiple files and dirs checks even after scanning is completed once.
 This is intentional and works as safety measure during the runtime.
 
 This piece of software has 2 operating modes:
@@ -29,6 +31,8 @@ This piece of software has 2 operating modes:
 - Qt6 based plugin for LMMS
 
 Each of them handles the audio play in their own manners, using callbacks to common codebase.
+
+They have been compiled and tested on Ubuntu 26.
 
 ## Personalized workflow
 

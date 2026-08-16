@@ -1,3 +1,6 @@
+# This CMake file is for compiling this application as a Plugin for LMMS.
+# logic/ is a symlink to src/ folder, where original src/ files are for generating standalone application.
+
 INCLUDE(BuildPlugin)
 
 BUILD_PLUGIN(

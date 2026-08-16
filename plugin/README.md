@@ -1,28 +1,30 @@
-# Scanner
+# Scanner Features
 
     - [x] scan .wav one-shots
-    - [x] adaptive graphs
-    - [x] view audio graphs
+    - [x] adaptive audio graphs
     - [x] skip large files
     - [x] prefer short samples
-    - [ ] save cpu
+    - [x] save cpu (low latency processes by filtering samples)
     - [x] import selected sample (creates a track in Pattern Editor)
     - [x] refresh/rescan files
-    - [ ] keyboard shortcuts
+    - [x] keyboard shortcuts
     - [x] Standalone as well as LMMS Integrated
 
 
 # Installation / Setup
 
-Except: main.cpp, symlink individual files under logic/ folder.
+Except: main.cpp, symlink individual files under logic/ folder from parent.
 
 Then:
-- Create a symlink of this folder (plugin) as "Scanner" under LMMS/plugins/.
-- Enable Scanner Plugin to compile with LMMS.
+- Create a symlink of this folder (plugin) as the name "Scanner" under LMMS/plugins/.
+- Enable "Scanner" Plugin to compile with LMMS by editing [LMMS/cmake/modules/PluginList.cmake](https://github.com/LMMS/lmms/blob/master/cmake/modules/PluginList.cmake)
 
 ```
+cd plugin
+
 mkdir logic
 cd logic
+
 ln -s ../../src/Configurations.h Configurations.h
 ln -s ../../src/CreateWaveformImage.h CreateWaveformImage.h
 ln -s ../../src/CustomTableWidget.h CustomTableWidget.h
@@ -38,3 +40,4 @@ ln -s ../../src/WavInfo.h WavInfo.h
 
 Do NOT edit any files under logic/.
 This is just a copy of standalone application!
+This setup lacks main.cpp only.

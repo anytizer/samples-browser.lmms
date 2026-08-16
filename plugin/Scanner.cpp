@@ -17,7 +17,7 @@ namespace lmms
 		{
 			LMMS_STRINGIFY(PLUGIN_NAME),
 			"Samples Visualizer",
-			QT_TRANSLATE_NOOP("PluginBrowser", "Preview and Import .wav samples"),
+			QT_TRANSLATE_NOOP("PluginBrowser", "Fetch, Preview and Import .wav samples"),
 			"@anytizer <anytizer@users.noreply.github.com>",
 			0x0100,
 			Plugin::Type::Tool,
