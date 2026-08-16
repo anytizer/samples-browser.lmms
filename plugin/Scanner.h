@@ -25,7 +25,7 @@ namespace lmms
             gui::PluginView* instantiateView(QWidget*) override
             {
                 auto plugin = new gui::ScannerView(this);
-                // this->setTitle("Scanner - Press F5 Key to scan samples");
+                //this->setTitle("Scanner - Press F5 Key to scan samples");
                 return plugin;
             }
     };

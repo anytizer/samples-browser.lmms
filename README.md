@@ -6,7 +6,9 @@ This piece of software has 2 operating mode:
 - Standalone Qt5 application.
 - Qt6 based plugin for LMMS
 
-It aggregates visual presentation of the uncompressed *.wav samples graphs. You can then decide which samples to include in your Pattern Editor track.
+It aggregates visual presentation of the uncompressed *.wav samples graphs.
+The graph shows loudness and duration of the sample in the list.
+You can then decide which samples to include in your Pattern Editor track.
 
 <img width="910" height="639" alt="Screenshot" src="https://github.com/user-attachments/assets/eb4888a3-7d91-446d-a3e7-64c8be829562" />
 
@@ -106,3 +108,5 @@ DO NOT use root account.
 - Inform that CMake for LMMS was modified (added Qt6::Multimedia)
 - Change plguin's window title from within the code
 - Limit the #define constants within application/plugin's namespace.
+- Deleting layout is not efficient. Traces in console.
+- Reduce console logs.
